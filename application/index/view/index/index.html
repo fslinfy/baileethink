@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>Bailee</title>
+    <meta name="keywords" content="Bailee" />
+    <meta name="description" content="Bailee" /> 
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>   
+</head>
+<body style="background-color:#f2f9fd;">
+<div class="header bg-main">  
+  <div class="logo margin-big-left fadein-top">
+    <h1>Bailee</h1>
+  </div>
+  <div class="head-l">
+  	<a class="button button-little bg-green" href="{:url('/')}">
+  		<span class="icon-home"></span> 前台首頁</a> 
+  		&nbsp;&nbsp;
+  		<!-- <a href="##" class="button button-little bg-blue"> -->
+  			<!-- <span class="icon-wrench"></span> 清除緩存</a>
+  			 &nbsp;&nbsp;	 -->
+  			 <a class="button button-little bg-red" href="{:url('Index/login/logout')}">
+  			 	<span class="icon-power-off"></span> 退出登錄</a> </div>
+</div>
+<div class="leftnav" style="overflow:auto">
+  <div class="leftnav-title"><strong><span class="icon-list"></span>菜單</strong></div>
+  <input runat="server" id="divScrollValue" type="hidden" value="" />
+  <h2><span class="icon-pencil-square-o"></span>工作</h2>
+  <ul>
+    <li><a href="{:url('student/index')}" target="right"><span class="icon-caret-right"></span>學生檔案</a></li>
+    <li><a href="{:url('receipt/index')}" target="right"><span class="icon-caret-right"></span>收據記錄</a></li>
+    <li><a href="{:url('contact/index')}" target="right"><span class="icon-caret-right"></span>聯繫人記錄</a></li>
+    <li><a href="{:url('worklog/index')}" target="right"><span class="icon-caret-right"></span>工作日誌</a></li>
+    <li><a href="{:url('calender/index')}" target="right"><span class="icon-caret-right"></span>日曆</a></li>
+    
+    <!-- <li><a href="cate.html" target="right"><span class="icon-caret-right"></span>收據記錄明細</a></li>
+    <li><a href="cate.html" target="right"><span class="icon-caret-right"></span>學習進度</a></li>         -->
+  </ul>  
+  <h2><span class="icon-user"></span>資料管理</h2>
+  <ul>
+    <li><a href="{:url('coach/index')}" target="right"><span class="icon-caret-right"></span>師傅資料</a></li>
+    <li><a href="{:url('doctor/index')}" target="right"><span class="icon-caret-right"></span>醫生資料</a></li>  
+    <li><a href="{:url('street/index')}" target="right"><span class="icon-caret-right"></span>街道編號</a></li>   
+    <li><a href="{:url('question/index')}" target="right"><span class="icon-caret-right"></span>技術試題</a></li>
+    <li><a href="{:url('question/newfive')}" target="right"><span class="icon-caret-right"></span>新五冊試題</a></li>
+    <li><a href="{:url('receipttype/index')}" target="right"><span class="icon-caret-right"></span>收據選項</a></li>    
+    <li><a href="{:url('cartype/index')}" target="right"><span class="icon-caret-right"></span>車類管理</a></li>    
+
+  </ul>   
+  <h2><span class="icon-pencil-square-o"></span>系統管理</h2>
+  <ul>
+    <li><a href="{:url('user/index')}" target="right"><span class="icon-caret-right"></span>用戶管理</a></li>
+    <li><a href="{:url('group/index')}" target="right"><span class="icon-caret-right"></span>用戶群組</a></li>
+    <li><a href="{:url('log/index')}" target="right"><span class="icon-caret-right"></span>操作日誌</a></li>
+    <li><a href="{:url('setting/index')}" target="right"><span class="icon-caret-right"></span>基本設定</a></li>        
+  </ul>  
+  <h2><span class="icon-pencil-square-o"></span>統計</h2>
+  <ul>
+    <li><a href="{:url('income/index')}" target="right"><span class="icon-caret-right"></span>收入統計</a></li>
+    <li><a href="{:url('msg/index')}" target="right"><span class="icon-caret-right"></span>訊息發放記錄</a></li>       
+  </ul>  
+
+</div>
+<script type="text/javascript">
+$(function(){
+  $(".leftnav h2").click(function(){
+	  $(this).next().slideToggle(200);	
+	  $(this).toggleClass("on"); 
+  })
+  $(".leftnav ul li a").click(function(){
+	    $("#a_leader_txt").text($(this).text());
+  		$(".leftnav ul li a").removeClass("on");
+		$(this).addClass("on");
+  })
+});
+</script>
+<ul class="bread">
+  <li><a href="{:url('Index/worklog/index')}" target="right" class="icon-home"> 首頁</a></li>
+  <li><a href="" id="a_leader_txt">網站信息</a></li>
+ <!--  <li><b>當前語言：</b><span style="color:red;">中文</php></span>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切換語言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a>  -->
+</li>
+</ul>
+<div class="admin">
+  <iframe scrolling="auto" rameborder="0" src="" name="right" width="100%" height="100%"></iframe>
+</div>
+
+</body>
+</html>

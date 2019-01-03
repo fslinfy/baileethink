@@ -1,0 +1,462 @@
+{include file="header0" /}
+<script src="https://bailee.clickrapp.com/themes/admin/js/vendor/jquery-1.10.2.min.js"></script>
+<script src="https://bailee.clickrapp.com/themes/admin/js/vendor/modernizr-2.6.2.min.js"></script>
+<div id="content">
+  <table border="0" width="100%">
+    <tr>
+      <td>
+
+        <div class="grid-100">
+          <div class="box">
+            <div class="box-title">
+              <table width="100%">
+                <tr>
+                  <td>
+                    <div><strong class="icon-reorder">即時考試排期</strong></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="box-content">
+              <!--
+                      <div id="examvacancy" class="box-content">
+                          <p class="text-center"><img src="https://bailee.clickrapp.com/themes/admin/img/loading.gif" alt="Loading..."></p>
+                      </div>
+                    -->
+
+              <table class="pure-table pure-table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>考試</th>
+                    <th>新考</th>
+                    <th>重考</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+
+
+
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="grid-100">
+          <div class="box">
+            <div class="box-title">
+              <table width="100%">
+                <tr>
+                  <td>
+                    <div><strong class="icon-reorder"> 工作日誌</strong></div>
+                  </td>
+
+                </tr>
+              </table>
+            </div>
+            <div class="box-content">
+              <div class="panel admin-panel">
+
+                <div class="padding border-bottom">
+                  <a class="button border-blue" href='{:url("index/admin/read1")}'> 新學生</a>
+                  <a class="button border-blue" href='{:url("index/admin/read2")}'> 十天新稟</a>
+                  <a class="button border-blue" href='{:url("index/admin/read3")}'> 理論</a>
+                  <a class="button border-blue" href='{:url("index/admin/read4")}'> 理論合格</a>
+                  <a class="button border-blue" href='{:url("index/admin/read5")}'> 理論不合格</a>
+                  <a class="button border-blue" href='{:url("index/admin/read6")}'> 技術</a>
+                  <a class="button border-blue" href='{:url("index/admin/read7")}'> 技術合格</a>
+                  <a class="button border-blue" href='{:url("index/admin/read8")}'> 技術不合格</a>
+                  <a class="button border-blue" href='{:url("index/admin/read9")}'> 技術未有結果</a>
+                  <a class="button border-blue" href='{:url("index/admin/read10")}'> 已分配師傅</a>
+                  <a class="button border-blue" href='{:url("index/admin/read11")}'> 未分配師傅</a>
+                  <a class="button border-blue" href='{:url("index/admin/read12")}'> 未完成技術付費</a>
+                  <a class="button border-blue" href='{:url("index/admin/read13")}'> 已完成技術付費</a>
+                  <a class="button border-blue" href='{:url("index/admin/read14")}'> 師傅</a>
+
+                </div>
+              </div>
+              <br/>
+              <h2>{$title}</h2><br/>
+              <table class="pure-table pure-table-bordered table-hover">
+                <thead>
+                  <tr>
+                    <th>身份證</th>
+                    <th>姓名</th>
+                    <th>報考車類</th>
+                    <?php
+                    session('worklog',1,'think');
+                    if($titlename != 'empty') {
+                      foreach($titlename as $t) {
+                        echo '<th>'.$t.'</th>';
+                      }
+                    }
+                  ?>
+
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {volist name="listdata" id="row" }
+                  <tr>
+                    <td class="id">{$row.student_idcard_number}</td>
+                    <td class="name">
+                      <a href="{:url('index/student/read')}?id={$row.student_id}&worklog={$worklog}">
+                  
+                      {$row.student_name}&nbsp;{$row.student_foreign_surname},{$row.student_foreign_name}
+                      </a>
+                    </td>
+                    <td class="type">{$row.car_type}</td>
+                    <?php
+                      $id_flag = 1;
+                      $student_id =$row->student_id;
+                       
+                      foreach($fieldname as $onefield){
+                          echo '<td>';
+                        if ($onefield=='')
+                        {
+                         
+                        }else
+                        {
+                          if ($onefield=='paper_date')
+                          {
+                          ?>
+
+
+                      {volist name="learninglist" id="lrow" } {if condition="$lrow.student_id==$student_id && $lrow.learning_type_id
+                      <3 "} {$lrow.learning_paper_date}
+                  {$lrow.learning_paper_time}
+                  <br/> {/if} {/volist}
+                  
+                  <?php 
+                          }
+                          else 
+                          {
+                               if ($onefield=='paper__date')
+                               {
+                              ?>
+
+                  
+                  {volist name="learninglist " id="lrow " } {if condition="$lrow.student_id==$student_id && $lrow.learning_type_id>2 "} {$lrow.learning_paper_date} {$lrow.learning_paper_time}
+                        <br/> {/if} {/volist}
+
+                        <?php 
+
+                               }else{  
+                              $fieldvalue =$row->$onefield;
+                              echo $fieldvalue;
+                               }
+                          }
+                      }
+                     
+                       echo '</td>';
+                      }  
+                    ?>
+                  </tr>
+                  {/volist}
+                </tbody>
+              </table>
+              <br />
+              <table width="100%" border="0">
+                <tr>
+                  <td style="text-align:center;vertical-align: middle; ">
+                    {$listdata->render()}
+                  </td>
+                </tr>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+
+        <br />
+
+        <div class="grid-100">
+          <div class="box">
+            <div class="box-title">
+              <table width="100%">
+                <tr>
+                  <td>
+                    <div><strong class="icon-reorder">考試清單</strong></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="box-content">
+              <div class="text-center">
+                <form id="search_form" action="{:url('index/exam/search')}" method="get" class="pure-form">
+                  按日期
+                  <input type="date" name="examdate" id="examdate" class="pure-input-1-3 date" 
+                  placeholder="0000-00-00" autocomplete="off" value="{$exam_date} "
+                  />
+                  <button type="submit" class="pure-button pure-button-primary">查詢</button>
+                </form>
+              </div>
+              <br />
+              <h2>今天考試的學生，共{$todaylistdata->total()}位。</h2><br />
+              <table class="pure-table pure-table-bordered table-hover">
+                <thead>
+                  <tr>
+
+                    <th>考試類別</th>
+                    <th>報考類型</th>
+                    <th>姓名</th>
+                    <th>考試時間</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  {volist name="todaylistdata" id="trow" }
+                  <tr>
+                    <td>{$trow.learning_type}</td>
+
+                    <td class="type">{$trow.car_type}</td>
+                    <td class="name">
+                      <a href="{:url('index/student/read')}?id={$trow.student_id}&worklog=0">
+                      {$trow.student_name}&nbsp;{$trow.student_foreign_surname},{$trow.student_foreign_name}
+                      </a>
+                    </td>
+                    <td>{$trow.learning_paper_time}</td>
+
+
+                  </tr>
+                  {/volist}
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+
+
+
+                  </tr>
+                </tbody>
+              </table>
+
+
+              <br />
+              <br />
+              <h2>明天考試的學生，共{$today1listdata->total()}位。</h2><br />
+              <table class="pure-table pure-table-bordered table-hover">
+                <thead>
+                  <tr>
+
+                    <th>考試類別</th>
+                    <th>報考類型</th>
+                    <th>姓名</th>
+                    <th>考試時間</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+
+                  {volist name="today1listdata" id="trow" }
+                  <tr>
+                    <td>{$trow.learning_type}</td>
+
+                    <td class="type">{$trow.car_type}</td>
+                    <td class="name">
+                      <a href="{:url('index/student/read')}?id={$trow.student_id}&worklog=0">
+                      {$trow.student_name}&nbsp;{$trow.student_foreign_surname},{$trow.student_foreign_name}
+                      </a>
+                    </td>
+                    <td>{$trow.learning_paper_time}</td>
+
+
+                  </tr>
+                  {/volist}
+                  <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+
+
+
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </td>
+      <td width="30%">
+
+        <div class="grid-100">
+          <div class="box">
+            <div class="box-title">
+              <table width="100%">
+                <tr>
+                  <td>
+                    <div><strong class="icon-reorder">查詢學生表格資料</strong></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="box-content">
+
+
+              <form id="form_search" action="{:url('index/student/search')}" method="get" class="pure-form">
+                <label>身份證號碼、姓名、电话号码</label>
+                <p><input type="text" id="keywords" name="keywords" value="" class="pure-input-1 input-large" autocomplete="off"
+                  /></p>
+                <button type="submit" class="pure-button pure-button-primary"><i class="fa fa-search"></i> 查詢</button>
+                <a class="pure-button" href="{:url('index/student/index')}">進階</a>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="grid-100">
+          <div class="box">
+            <div class="box-title">
+              <table width="100%">
+                <tr>
+                  <td>
+                    <div><strong class="icon-reorder">本月數據</strong></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="box-content">
+              <table class="pure-table pure-table-bordered table-hover">
+                         <tbody>
+
+                  {volist name="sumlistdata" id="ttrow" }
+                  <tr>
+                    <td>{$ttrow.varname}</td>
+
+                
+                    <td>{$ttrow.sl}</td>
+
+
+                  </tr>
+                  {/volist}
+                
+                </tbody>
+              </table>
+
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="grid-100">
+          <div class="box">
+            <div class="box-title">
+              <table width="100%">
+                <tr>
+                  <td>
+                    <div><strong class="icon-reorder">總數據</strong></div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div class="box-content">
+
+              <table class="pure-table pure-table-bordered table-hover">
+                <tbody>
+                  <tr>
+                    <td>學生檔案總量：</td>
+                    <td>{$sum_students}</td>
+                  </tr>
+                  <tr>
+                    <td>總收據總量：</td>
+                    <td>{$sum_receipts}</td>
+                  </tr>
+                  <tr>
+                    <td><b style="color:#b94a48">剩餘短信條數：</b></td>
+                    <td>{$sum_sms}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+        <!--box-->
+
+      </td>
+    </tr>
+  </table>
+
+</div>
+<script type="text/javascript" charset="utf-8">
+  $(document).ready(function () {
+    $('#keywords').focus();
+//alert(new Date());
+    $('#search_form').submit(function () {
+    //  alert(' examdate');
+      var examdate = $('#examdate').val();
+
+      if (examdate != null && $.trim(examdate) != '')
+        return true;
+      $('#examdate').focus().select();
+      return false;
+    });
+    $('#form_search').submit(function () {
+      var id_number = $('#keywords').val();
+     // alert(id_number);
+      if (id_number != null && $.trim(id_number) != '')
+        return true;
+      $('#keywords').focus().select();
+      return false;
+    });
+    //採集即時考試排期
+    /*
+    var URL='https://bailee.clickrapp.com/admin/contact/ajax_get_examvacancy.html'; 
+             $.ajax({
+                 url: URL,//提交访问的URL 
+                 type: 'GET',//提交的方法 
+                 dataType: 'html',//返回的内容的类型，由于PHP文件是直接echo的，那么这里就是text 
+                 timeout: 1000,//超时时间 
+                 error: function () { //如果出错，执行函数 
+                     alert('Error loading XML document');
+                 },
+                 success: function (data) {
+                       alert(data);//如果成功，弹出数据 
+                     console.log(data);
+                    // var j = eval('(' + data + ')');//json转成object
+                   //  console.log(j.length);
+                   //  document.getElementById("detail_price").value = parseFloat(j[0].receipt_type_price).toFixed(2);
+                   //  sumblur();
+                 }
+             });
+ */
+
+    /*
+        $.ajax({
+          url: "https://bailee.clickrapp.com/admin/contact/ajax_get_examvacancy.html",
+          type: 'GET',
+          dataType: 'html',
+          success:function(data){
+            alert("asdfads="+data);
+            $('#examvacancy').html(data);
+          },
+          error:function(){
+            console.log('get Ajax data error!');
+          }
+        });
+        */
+  });
+
+</script>
+{include file="footer" /}

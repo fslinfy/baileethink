@@ -1,0 +1,68 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">訊息發放記錄</strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+     
+          <br />
+       
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+                <th width="20%">時間</th>
+                <th width="20%">電話</th>
+                <th width="10%">職員</th>
+                <th width="40%">內容</th>
+                <th width="10%">狀況</th>
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="msglistdata" id="trow" }
+              <tr>
+                <td>{$trow.create_time}</td>
+                <td>{$trow.msg_phone}</td>
+                <td>{$trow.msg_staff}</td>
+                <td>{$trow.msg_content}</td>
+                <td> <span class="text-success">
+                  {if condition="$trow.msg_status==1"}發送成功
+                  {/if}
+                  </span></td>
+              </tr>
+              {/volist}
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </tbody>
+          </table>
+                  <br />
+          <table width="100%" border="0">
+            <tr>
+              <td style="text-align:right; ">
+                {$msglistdata->render()} 
+              </td>
+              <td style="vertical-align:middle; ">
+                总记录数（{$msglistdata->total()}）
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{include file="footer" /}

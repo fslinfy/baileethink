@@ -1,0 +1,154 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">
+
+                    系統設定
+
+                  </strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+          <form method="post" class="pure-form" action="<?php
+            echo url('Index/setting/update').'?id='.$data['setting_id'] ?>">
+
+            <input type="hidden" name="setting_id" value="{$data['setting_id']}" />
+
+          
+            <table class="pure-table data-table data-table-edit">
+              <tr>
+                <td class="row-1">顯示名稱：</td>
+                <td class="row-2">
+                  <input type="text" style="width:80%;"  value="{$data.setting_show_name}" name="setting_show_name"
+                   />
+              </tr>
+
+              <tr>
+                <td class="row-1">日誌記錄(天數):</td>
+                <td class="row-2">
+                  <input type="text"  value="{$data.setting_operate_log}" name="setting_operate_log" />
+
+                </td>
+              </tr>
+              <tr>
+                <td class="row-1">默認語言：</td>
+                <td class="row-2">
+                  <input type="text"  name="setting_time_type" value="{$data.setting_time_type}" />
+
+              </tr>
+              <tr>
+                <td class="row-1">顯示的時間格式：</td>
+                <td class="row-2">
+                  <input type="text"  name="setting_time_type" value="{$data.setting_time_type}" />
+
+              </tr>
+              <tr>
+                <td class="row-1">每頁顯示：</td>
+                <td class="row-2">
+                  <input type="text"  name="setting_page_contain" value="{$data.setting_page_contain}" />
+
+              </tr>
+              <tr>
+                <td class="row-1">模擬筆試網址：</td>
+                <td class="row-2">
+                  <input type="text" style="width:80%;" name="setting_test_website" value="{$data.setting_test_website}" />
+
+              </tr>
+              <tr>
+                <td class="row-1">收據開始號碼：</td>
+                <td class="row-2">
+                  <input type="text"  name="setting_receipt_number" value="{$data.setting_receipt_number}" />
+
+              </tr>
+              <tr>
+                <td class="row-1">收據顯示地址：</td>
+                <td class="row-2">
+                    <textarea name="setting_receipt_location" style="width:80%; height:150px"
+                     >{$data.setting_receipt_location}</textarea>
+                 
+
+              </tr>
+              <tr>
+                <td class="row-1">入稟紙打印地址項：</td>
+                <td class="row-2">
+                  <input type="text" style="width:80%;"  name="setting_print_location" value="{$data.setting_print_location}" />
+
+              </tr>
+              <tr>
+                <td class="row-1">短信使用剩餘提醒（電郵方式）：</td>
+                <td class="row-2">
+                  <input type="text"  name="setting_msg_remind" value="{$data.setting_msg_remind}" />
+
+              </tr>
+              <tr>
+                <td class="row-1">Email接收者：</td>
+                <td class="row-2">
+                  <input type="text"  name="setting_email" value="{$data.setting_email}" />
+
+              </tr>
+                  <tr>
+                <td class="row-1">駕校编号：</td>
+                <td class="row-2">
+                  <input type="text"  name="setting_school_number" value="{$data.setting_school_number}" />
+
+              </tr>
+              <tr>
+                <td class="row-1">駕校电话：</td>
+                <td class="row-2">
+                  <input type="text"  name="setting_school_phone" value="{$data.setting_school_phone}" />
+
+              </tr>
+            </table>
+            <p class="text-center">
+              <button class="button bg-main icon-check-square-o" type="submit" onclick="return edit()"> 修改</button>
+              <a class="button border-red" href='{:url("index/setting/index")}' onclick="return cancel()"><span class="icon-trash-o"></span>
+                取消</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function checkedit() {
+    if (confirm("您確定要修改嗎?")) {
+      document.getElementById("savetype").value = "save";
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function checkdel() {
+    if (confirm("您確定要删除此记录嗎?")) {
+      document.getElementById("savetype").value = "del";
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function cancel() {
+    if (confirm("您確定要取消嗎?")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function edit() {
+    if (confirm("您確定要修改嗎?")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+</script>

@@ -1,0 +1,128 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">
+                    {if condition="$data.id >'0'"}修改资料
+                  {else/}增加资料
+                   {/if}
+                </strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+          <form method="post" class="pure-form" action="<?php
+            echo url('Index/cartype/update').'?id='.$data['id'] ?>">
+
+            <input type="hidden" name="id" value="{$data['id']}" />
+            <input type="hidden"   name="savetype" id="savetype" value="edit" />
+
+            <table class="pure-table data-table data-table-edit">
+                <tr>
+                    <td class="row-1">車類：</td>
+                    <td class="row-2"><input type="text" name="car_type" value="{$data.car_type}"></td>
+                  </tr>
+
+              <tr>
+                <td class="row-1">車類類型：</td>
+                <td class="row-2">
+                    <select name="car_type_type">
+                        {if condition="$data.car_type_type =='特殊'"}
+                        <option value="普通">普通</option>
+                        <option value="特殊" selected>特殊</option>
+                        {else/}
+                        <option value="普通" selected>普通</option>
+                        <option value="特殊">特殊</option>
+                        {/if}
+                      </select>
+                   </div>
+                </td>
+              </tr>
+              <tr>
+                <td class="row-1">排序:</td>
+                <td class="row-2"><input type="text" name="car_type_order" 
+                  value="{$data.car_type_order}">
+                  
+                </td>
+              </tr>
+             
+                <tr>
+                <td class="row-1">打印参数1:</td>
+                <td class="row-2"><input type="text" name="remark1" 
+                  value="{$data.remark1}">
+                  
+                </td>
+              </tr>
+                <tr>
+                <td class="row-1">打印参数2:</td>
+                <td class="row-2"><input type="text" name="remark2" 
+                  value="{$data.remark2}">
+                  
+                </td>
+              </tr>
+                <tr>
+                <td class="row-1">打印参数3:</td>
+                <td class="row-2"><input type="text" name="remark3" 
+                  value="{$data.remark3}">
+                  
+                </td>
+              </tr>
+          
+              <tr>
+                <td class="row-1">是否啓用：</td>
+                <td class="row-2">
+                    {if condition="$data.car_type_status ==1"}
+                    <input type="checkbox" name="car_type_status" checked="checked" />
+                    {else/}
+                    <input type="checkbox" name="car_type_status"  />
+                    {/if}
+              </tr>
+            </table>
+            <p class="text-center">
+                <button type="submit" class="pure-button pure-button-primary  icon-check-square-o" onclick="return checkedit()">儲存</button>
+                {if condition="$data.id >'0'"}
+                &nbsp;&nbsp; <button type="submit"
+                class="button border-red" 
+                onclick="return checkdel()">
+                 <span   class="icon-trash-o"></span> 删除</button>
+                {/if}
+             &nbsp;&nbsp; <a class="pure-button" href="{:url('Index/cartype/index')}" onclick="return cancel()">取消</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function checkedit(){
+    if(confirm("您確定要修改嗎?")){
+      document.getElementById("savetype").value = "save";
+       return true;
+    }else{
+      return false;
+    }
+  }
+  function checkdel(){
+    if(confirm("您確定要删除此记录嗎?")){
+      document.getElementById("savetype").value = "del";
+       return true;
+    }else{
+      return false;
+    }
+  }
+  function cancel(){
+    if(confirm("您確定要取消嗎?")){
+       return true;
+    }else{
+      return false;
+    }
+  }
+  </script>
+  

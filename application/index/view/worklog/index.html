@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+<link rel="stylesheet" href="__STATIC__/css/admin.css">
+<!-- <link rel="stylesheet" href="__STATIC__/css/bootstrap.min.css"> -->
+<script src="__STATIC__/js/jquery.js"></script>
+<script src="__STATIC__/js/pintuer.js"></script>
+<!-- <script src="__STATIC__/js/bootstrap.min.js"></script> -->
+
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder">工作日誌</strong></div>
+  <div class="padding border-bottom">  
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=1'> 新學生</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=2'> 十天新稟</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=3'> 理論</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=4'> 理論合格</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=5'> 理論不合格</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=6'> 技術</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=7'> 技術合格</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=8'> 技術不合格</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=9'> 技術未有結果</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=10'> 已分配師傅</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=11'> 未分配師傅</a>  
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=12'> 未完成技術付費</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=13'> 已完成技術付費</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=14'> 師傅</a>
+  <a class="button border-blue" href='{:url('index/worklog/read')}?id=0'> ALL</a>
+
+
+  </div> 
+</div>
+
+  <table class="table table-hover text-center">    
+  </table>
+</div>
+<script type="text/javascript">
+function del(id,mid){
+	if(confirm("您确定要删除吗?")){
+	   return id,mid
+	}
+}
+</script>
+
+</body></html>

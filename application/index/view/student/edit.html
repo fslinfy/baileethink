@@ -1,0 +1,244 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">
+                    {if condition="$data.id >'0'"}修改资料
+                    {else/}增加资料
+                    {/if}
+                  </strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+          <form method="post" class="pure-form" action="<?php
+            echo url('Index/student/update').'?id='.$data['id'] ?>">
+
+            <input type="hidden" name="id" value="{$data['id']}" />
+            <input type="hidden" name="savetype" id="savetype" value="edit" />
+            <table class="pure-table data-table data-table-edit">
+              <tr>
+                <td class="row-1">身份證號碼：</td>
+                <td class="row-2"><input type="text" name="student_idcard_number" value="{$data.student_idcard_number}"></td>
+              </tr>
+              <tr>
+                <td class="row-1">身份證：</td>
+                <td class="row-2">
+                    類別&nbsp;<input type="text" name="student_type" value="{$data.student_type}">
+                    有效日期&nbsp;<input type="date" name="student_valid_date" value="{$data.student_valid_date}">
+                    發證機關&nbsp;<input type="text" name="student_card_department" value="{$data.student_card_department}">
+                </td>
+              </tr>
+            
+              
+              <tr>
+                <td class="row-1">外文譯音：</td>
+
+                <td class="row-2">
+                  姓&nbsp;<input type="text" name="student_foreign_surname" value="{$data.student_foreign_surname}">
+                  名&nbsp;<input type="text" name="student_foreign_name" value="{$data.student_foreign_name}">
+                </td>
+              </tr>
+              
+            
+              
+              <tr>
+                <td class="row-1">中文姓名：</td>
+                <td class="row-2"><input type="text" name="student_name" value="{$data.student_name}">
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="row-1">性別：</td>
+                <td class="row-2">
+                    <select  name="student_sex">
+                        {if condition="$data.student_sex =='女'"}
+                        <option value="男">男</option>
+                        <option value="女" selected>女</option>
+                        {else/}
+                        <option value="男" selected>男</option>
+                        <option value="女">女</option>
+                        {/if}
+                      </select>
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="row-1">出生日期：</td>
+                <td class="row-2"><input type="date" name="student_brithday" value="{$data.student_brithday}">
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="row-1">出生地點：</td>
+                <td class="row-2"><input type="text" name="student_brith_location"  style="width:80%;" value="{$data.student_brith_location}">
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="row-1">國籍：</td>
+                <td class="row-2"><input type="text" name="student_nationality" value="{$data.student_nationality}">
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="row-1">語言：</td>
+                <td class="row-2">
+                    <select  name="student_language" id="student_language" >
+                        {volist name="languagelist" id="lrec" }
+                        {if condition="$data.student_language ==$lrec.namevalue"}
+                        <option value={$lrec.namevalue} selected>{$lrec.name}</option>
+                        {else/}
+                        <option value={$lrec.namevalue}>{$lrec.name}</option>
+                        {/if}
+                        {/volist}
+                      </select>
+               
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="row-1">聯絡電話：</td>
+                <td class="row-2"><input type="text" style="width:60%;" name='student_phone' value="{$data.student_phone}">
+                </td>
+              </tr>
+            
+              <tr>
+                <td class="row-1">街道編號：</td>
+                <td class="row-2">
+                    <select  name="student_street_number" id="student_street_number" onblur="streetselect({$data['student_street_number']})">
+                        {volist name="poplist" id="rec" }
+                        {if condition="$data.student_street_number ==$rec.street_number"}
+                        <option value={$rec.street_number} selected>{$rec.street_number}：{$rec.street_name}</option>
+                        {else/}
+                        <option value={$rec.street_number}>{$rec.street_number}：{$rec.street_name}</option>
+                        {/if}
+                        {/volist}
+                      </select>
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="row-1">葡文 住址：</td>
+                <td class="row-2"><input type="text" name="student_proguese_location"  style="width:80%;" value="{$data.student_proguese_location}">
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="row-1">葡文住址第二行：</td>
+                <td class="row-2"><input type="text" name="student_proguese_location2" style="width:80%;" value="{$data.student_proguese_location2}">
+                </td>
+              </tr>
+              
+              <tr>
+                <td class="row-1">中文 住址：</td>
+                <td class="row-2"><input type="text" name="student_location" style="width:80%;" value="{$data.student_location}">
+                </td>
+              </tr>
+            
+
+              <tr>
+                <td class="row-1">視力：</td>
+                <td class="row-2">
+                  
+                    <select  name="student_eyesight" id="student_eyesight" >
+                        {volist name="visionlist" id="rec" }
+                        {if condition="$data.student_eyesight ==$rec.namevalue"}
+                        <option value={$rec.namevalue} selected>{$rec.name}</option>
+                        {else/}
+                        <option value={$rec.namevalue}>{$rec.name}</option>
+                        {/if}
+                        {/volist}
+                      </select>
+                  
+                  
+                  
+                <!--  <input type="text" name="student_eyesight" value="{$data.student_eyesight}">-->
+                </td>
+              </tr>
+              <tr>
+                <td class="row-1">備註：</td>
+                <td class="row-2">
+                    <textarea name="student_remark" style="width:80%; height:150px"
+                    >{$data.student_remark}</textarea>
+                 <!-- <input type="text" name="student_remark" value="{$data.student_remark}"></td>-->
+              </tr>
+              <tr>
+                <td class="row-1">是否永不過期：</td>
+                <td class="row-2">
+                  
+                    {if condition="$data.student_never_overdate ==1"}
+                    <input type="checkbox" name="student_never_overdate" checked="checked" />
+                    {else/}
+                    <input type="checkbox" name="student_never_overdate" />
+                    {/if}
+                </td>
+              </tr>
+              <tr>
+                  <td class="row-1">是否舊資料：</td>
+                  <td class="row-2">
+                    
+                      {if condition="$data.student_old ==1"}
+                      <input type="checkbox" name="student_old" checked="checked" />
+                      {else/}
+                      <input type="checkbox" name="student_old" />
+                      {/if}
+                  </td>
+                </tr>
+              <tr>
+           
+             
+            </table>
+            <p class="text-center">
+                <button type="submit" class="pure-button pure-button-primary  icon-check-square-o" onclick="return checkedit()">儲存</button>
+                {if condition="$data.id >'0'"}
+                &nbsp;&nbsp; <button type="submit"
+                class="button border-red" 
+                onclick="return checkdel()">
+                 <span   class="icon-trash-o"></span> 删除</button>
+                {/if}
+              &nbsp;&nbsp; <a class="pure-button" href="{:url('Index/student/index')}" onclick="return cancel()">取消</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function checkedit() {
+    if (confirm("您確定要修改嗎?")) {
+      document.getElementById("savetype").value = "save";
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function checkdel() {
+    if (confirm("您確定要删除此记录嗎?")) {
+      document.getElementById("savetype").value = "del";
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function cancel() {
+    if (confirm("您確定要取消嗎?")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function streetselect(oldvalue) {
+  var s = document.getElementById("street_id").value;
+  if (oldvalue==s) return ;
+  }
+</script>
+
+

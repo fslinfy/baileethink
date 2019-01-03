@@ -1,0 +1,72 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">收款记录</strong></div>
+              </td>
+              {if condition="$url>''"}
+              <td width="200">
+                <a class="button border-yellow" 
+                href=<?php echo url('index/receipt/indexmx') ?>?learningid={$learningid}&receiptid=0&act=1>
+                  <span class="icon-plus-square-o"></span> 添加</a>
+                <a class="button border-yellow" href=<?php echo url('index/student/read') ?>?id={$studentid}>
+                  返回</a>
+              </td>
+
+              {/if}
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>收據日期</th>
+                <th>收據號碼</th>
+                <th>收據内容</th>
+
+
+                <th>總金額</th>
+
+                <th>经办人</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="listdata" id="rec" }
+              <tr>
+                <td>{$rec.receipt_date}</td>
+                <td>{$rec.receipt_number}</td>
+
+                <td>{$rec.receipt_content}</td>
+                <td>{$rec.receipt_total_price}</td>
+                <td>{$rec.modifiedBy}</td>
+
+                <td>
+                  <div class="button-group">
+                    <a class="button border-main" href=<?php echo url('index/receipt/indexmx') ?>?learningid={$rec.learning_id}&receiptid={$rec.receipt_id}&act=1
+                      ><span class="icon-edit"></span>
+                      查阅</a>
+
+                  </div>
+                </td>
+              </tr>
+              {/volist}
+
+            </tbody>
+          </table>
+          <br />
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{include file="footer" /}

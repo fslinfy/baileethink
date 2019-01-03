@@ -1,0 +1,348 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">
+                    收款资料
+
+                  </strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+          <div class="form-group"></div>
+          <div class="panel admin-panel">
+            <form method="post" class="form-x" action="<?php
+                    echo url('index/receipt/mxinsert');
+                    echo '?id='.$data['receipt_id'].'">';
+              ?>
+              
+
+              <div class="padding border-bottom">
+
+                <table width="100%" border=0 style="background-color: white;color: black;  ">
+                  <tr>
+                    <td width="70" ; style="vertical-align: middle;text-align: right;">
+
+                      收據號碼:
+
+                    </td>
+                    <td>
+
+                      <div class="field">
+                        <input type="text" class="input w60" value="{$data.receipt_number}" name="receipt_number" id="receipt_number" />
+                        <div class="tips"></div>
+                      </div>
+                    </td>
+                    <td width="120" style="vertical-align: middle;text-align: right; ">
+
+                      经办人:
+
+                    </td>
+                    <td>
+
+                      <div class="field">
+                        <input type="text" class="input w60" readonly value="{$data.modifiedBy}" name="modifiedBy" id="modifiedBy" />
+                        <div class="tips"></div>
+                      </div>
+                    </td>
+                    <td style="vertical-align: middle;text-align: right;">
+
+                      收款日期:
+
+                    </td>
+                    <td>
+                      <div class="field">
+                        <input type="date" class="input w60" value="{$data.receipt_date}" name="receipt_date" id="receipt_date" />
+                        <div class="tips">
+                        </div>
+                      </div>
+                    </td>
+
+                  </tr>
+                  <tr height="5">
+                    <td colspan='6'></td>
+                  </tr>
+                  <tr>
+                    <td style="vertical-align: middle;text-align: right;  ">
+                  
+                        收據说明:
+
+                    <td colspan='3'>
+                      <div class="field">
+                        <input type="text" class="input w70" value="{$data.receipt_content}" name="receipt_content" id="receipt_content" />
+                        <div class="tips"></div>
+                      </div>
+                    </td>
+                    <td style="vertical-align: middle;text-align: right; ">
+
+                      收付方式:
+
+                    </td>
+                    <td style="vertical-align: middle; ">
+                      <div class="field">
+
+                        <select name="receipt_pay_type" class="input w60" id="receipt_pay_type">
+                          {volist name="plist" id="prec" }
+                          {if condition="$data.receipt_pay_type ==$prec.name"}
+                          <option value={$prec.name} selected>{$prec.name}</option>
+                          {else/}
+                          <option value={$prec.name}>{$prec.name}</option>
+                          {/if}
+                          {/volist}
+                        </select>
+                        <div class="tips"></div>
+                      </div>
+                    </td>
+
+                  </tr>
+
+                </table>
+              </div>
+          </div>
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>收據项目</th>
+
+                <th>数量</th>
+                <th>单价</th>
+                <th>金額</th>
+                <th>备注</th>
+                {if condition="$data.receipt_status == 0"}
+                <th>操作</th>
+                {/if}
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="mxlistdata" id="rec" }
+              <tr>
+                <td>{$rec.detail_item}</td>
+                <td>{$rec.detail_quantity}</td>
+                <td>{$rec.detail_price}</td>
+                <td>{$rec.detail_sum}</td>
+                <td>{$rec.detail_note}</td>
+                {if condition="$data.receipt_status == 0"}
+                <td>
+                  <div class="button-group">
+                 
+                    <a class="button border-red" method="delete" href=<?php echo url('index/receipt/mxdelete') ?>?id={$rec.detail_id}&learningid={$learningid}&receiptid={$rec.receipt_id}
+                      onclick="return del()"><span class="icon-trash-o"></span> 删除</a>
+                  
+                  </div>
+                </td>
+                {/if}
+              </tr>
+              {/volist}
+              {if condition="$data.receipt_status ==0"}
+              <tr>
+
+                <td style=" vertical-align: top ">
+                  <div >
+
+                    <select name="receipt_type_id" class="input w150" id="receipt_type_id" onChange="onSelect()">
+                      <option value=''></option>
+                      {volist name="listdata" id="lrec" }
+                      <option value={$lrec.receipt_type_id}>{$lrec.receipt_type_name}</option>
+                      {/volist}
+                    </select>
+                  </div>
+                </td>
+
+                <td>
+                  <div style="margin:2 10 2 0; ">
+                      <input type="hidden"  name="detail_item"  id="detail_item" />
+                    <input type="number" class="input w150" value=1 name="detail_quantity" onChange="sumblur()" id="detail_quantity" />
+                  </div>
+                </td>
+                <td>
+                  <div style="margin:2 10 2 0; ">
+                    <input type="number" class="input w150" value=0 step="0.01" name="detail_price" onChange="sumblur()"
+                      id="detail_price" />
+                  </div>
+                </td>
+                <td>
+                  <div style="margin:2 10 2 0; ">
+                    <input type="number" class="input w150" value=0 name="detail_sum" step="0.01" readonly="readonly"
+                      id="detail_sum" />
+                  </div>
+                </td>
+                <td>
+                  <div style="margin:2 10 2 0; ">
+                    <input type="text" class="input w150" value="" name="detail_note" />
+                  </div>
+                </td>
+                <td style=" vertical-align: top ">
+                  <div class="button-group">
+                    <input type="hidden" value={$act} name="receipt_act" id="receipt_act" />
+                    <input type="hidden" value={$data.receipt_id} name="receipt_id" id="receipt_id" />
+                    <input type="hidden" value={$data.learning_id} name="learning_id" id="learning_id" />
+                    <input type="hidden" value="" id="savetype" name="savetype" />
+                    <button class="button border-yellow" type="submit" onclick="return insert()"> <span class="icon-plus-square-o"></span> 插入
+                    </button>
+
+
+
+                  </div>
+                </td>
+              </tr>
+              {/if}
+            </tbody>
+          </table>
+<br/>
+          <table width="100%" border="0">
+              <tr>
+                <td style="text-align:center;vertical-align: middle; ">
+          
+                    {if condition="$data.receipt_status ==0"}
+                    <button class="button bg-main icon-check-square-o" type="submit" onclick="return checksave()">
+                      保存
+                    </button>
+                    {/if}
+                    {if condition="$act==1"}
+                    <a class="button border-yellow" href=<?php echo url('index/receipt/learningreceipt') ?>?learningid={$learningid}
+                      >
+                      返回</a>
+                    {else/}
+                    {if condition="$act==2"}
+                    <a class="button border-yellow" href=<?php echo url('index/student/read') ?>?id=<?php echo session('student_id','','think') ?>
+                      >
+                      返回</a>
+                    {else/}
+                    <a class="button border-yellow" href=<?php echo url('index/receipt/index') ?>
+                      >
+                      返回</a>
+                      {/if}
+                    {/if}
+
+                </td>
+  
+              </tr>
+            </table>
+
+          </form>
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  function onSelect() {
+    
+    $id = document.getElementById("receipt_type_id").value;
+
+    var URL = '/index/mysqlaction/getreceipttypeprice?id=' + $id;
+ //  alert(URL);
+    $.ajax({
+      url: URL,//提交访问的URL 
+      type: 'GET',//提交的方法 
+      dataType: 'text',//返回的内容的类型，由于PHP文件是直接echo的，那么这里就是text 
+      timeout: 1000,//超时时间 
+      error: function () { //如果出错，执行函数 
+        alert('Error loading XML document');
+      },
+      success: function (data) {
+        //  alert(data);//如果成功，弹出数据 
+       // console.log(data);
+        var j = eval('(' + data + ')');//json转成object
+      //  console.log(j.length);
+        document.getElementById("detail_price").value = parseFloat(j[0].receipt_type_price).toFixed(2);
+        document.getElementById("detail_item").value =j[0].receipt_type_name;
+        sumblur();
+      }
+    });
+
+
+
+  }
+  function sumblur() {
+    var q = parseFloat(document.getElementById("detail_quantity").value);
+    var p = parseFloat(document.getElementById("detail_price").value);
+
+    document.getElementById("detail_sum").value = parseFloat(q * p).toFixed(2);
+
+
+  }
+  function insert() {
+
+    var sum = document.getElementById("detail_sum").value;
+    if (sum == 0) {
+      alert('收款金额不能为：0');
+      return false;
+    }
+    var id = document.getElementById("receipt_type_id").value;
+    if (id == 0) {
+      alert('请选择收费项目！');
+      return false;
+    }
+
+    if (confirm("您確定要插入明细项目嗎?")) {
+      document.getElementById("savetype").value = "";
+
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function del(id, mid) {
+    if (confirm("您确定要删除吗?")) {
+      return id, mid
+    }
+  }
+  function cancel(id, mid) {
+    if (confirm("您确定不保存退出吗?")) {
+
+      if (window.opener != null && !window.opener.closed) {
+
+        window.opener.HideModalDiv();
+
+      }
+    }
+  }
+  function checksave() {
+  
+    var id = document.getElementById("receipt_id").value;
+
+    if (id == 0) {
+      alert('请先插入明细收款记录！');
+      return false;
+    }
+    var v = document.getElementById("receipt_pay_type").value;
+    //alert(v);
+    if (v == "") {
+      alert('请选择收费方式！');
+      return false;
+    }
+
+    if (confirm("您確定保存此收款单内容嗎?")) {
+      document.getElementById("savetype").value = "save";
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function OnClose() {
+
+    if (window.opener != null && !window.opener.closed) {
+
+      window.opener.HideModalDiv();
+
+    }
+
+  }
+
+  window.onunload = OnClose;
+</script>
+
+

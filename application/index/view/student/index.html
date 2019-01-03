@@ -1,0 +1,151 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">學生檔案 </strong></div>
+              </td>
+              
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+                <div class="text-center">
+            <form name="search_form" action="{:url('index/student/search')}"  method="get" class="pure-form">
+              快速搜尋(身份證/電話/中文姓名/英文姓名)
+         
+              <span id="keywords_div" style="display:">
+                <input id="keywords" type="text" name="keywords" value="" class="pure-input-1-3"/>
+              </span>
+             
+              <button type="submit" class="pure-button pure-button-primary">查詢</button>
+            </form>
+          </div>
+      <table width="100%">
+            <tr>
+              <td>
+                <h2>共有{$listdata->total()}位學生。</h2>
+              </td>
+              {if condition="$url>''"}
+              <td width="100">
+                <a class="button border-yellow" style="height:'30';" href='{:url($url."/create")}'>
+                  <span class="icon-plus-square-o"></span> 添加</a>
+              </td>
+              {/if}
+            </tr>
+          </table>
+
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+                     <th>身份證</th>
+                    <th>姓名</th>
+                 
+                <?php
+
+                    if($titlename != 'empty') {
+                      foreach($titlename as $t) {
+                        echo '<th>'.$t.'</th>';
+                      }
+                    }
+                  ?>
+                  {if condition="$url1>''"}
+                  <th>操作</th>
+                  {/if}
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="listdata" id="row" }
+              <tr>
+                  <td class="id">{$row.student_idcard_number}</td>
+                    <td class="name">
+                      <a href="{:url('index/student/read')}?id={$row.student_id}">
+                  
+                      {$row.student_name}&nbsp;{$row.student_foreign_surname},{$row.student_foreign_name}
+                      </a>
+                    </td>
+                  
+                <?php
+                $id_flag = 0;
+                foreach($fieldname as $onefield){
+                  if(strpos($onefield,'status')>0)
+                  {
+                  if ($row->$onefield>0){ echo "<td>啓用</td>" ;
+                }else{ echo "<td></td>" ;}
+   
+                  }
+                  else
+                  {
+
+                  if ($onefield=='')
+                  {
+                    echo '<td></td>';
+                  }else
+                  {
+                    $mxurl=url($url.'/edit').'?id='.$row->$idfield;
+                    $classname='';
+                    $fieldvalue =$row->$onefield;
+                    if ($onefield=='student_idcard_number')
+                    {
+                      $classname='class="id"';
+                    }else
+                    {
+                       if ($onefield=='student_name')
+                          {
+                            $classname='class="name"';
+                          }
+                    
+                    }
+                    if($id_flag == 0 ){
+                        echo '<td '.$classname.'><a href=';
+                        echo url($url.'/edit').'?id='.$row->$idfield;
+                        echo ">".$fieldvalue.'</a></td>';
+                        $id_flag = 1;
+                    }
+                    else
+                    {
+                        echo '<td '.$classname.' >'.$fieldvalue.'</td>';
+                    }
+                }
+              }
+                }  
+              ?>
+                  {if condition="$url1>''"}
+                  <td width="120">
+                    <a class="button border-main" <?php echo ' href=' ; echo url($url1. '/edit'). '?id='.$row->$idfield; ?> >
+                    <span class="icon-edit"></span>
+                    查询</a>
+                  </td>
+                  {/if}
+              </tr>
+              {/volist}
+            </tbody>
+          </table>
+          <br />
+          <table width="100%" border="0">
+            <tr>
+                 <td style="text-align:right; ">
+                {$listdata->render()} 
+              </td>
+              <td style="vertical-align:middle; ">
+                总记录数（{$listdata->total()}）
+              </td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+$(document).ready(function() {
+ 
+  
+});
+</script>
+{include file="footer" /}

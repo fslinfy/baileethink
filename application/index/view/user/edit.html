@@ -1,0 +1,119 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">
+                    {if condition="$data.id >'0'"}修改资料
+                  {else/}增加资料
+                   {/if}
+                </strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+          <form method="post" class="pure-form" action="<?php
+            echo url('Index/user/update').'?id='.$data['id'] ?>">
+
+            <input type="hidden" name="id" value="{$data['id']}" />
+            <input type="hidden"   name="savetype" id="savetype" value="edit" />
+            <table class="pure-table data-table data-table-edit">
+                <tr>
+                    <td class="row-1">登錄賬號：</td>
+                    <td class="row-2"><input type="text" name="user_account" value="{$data.user_account}"></td>
+                  </tr>
+
+              <tr>
+                <td class="row-1">用戶姓名:</td>
+                <td class="row-2"><input type="text" name="user_name" 
+                  value="{$data.user_name}" >
+                
+                </td>
+              </tr>
+              {if condition="$data.id =='0'"}
+              <tr>
+                <td class="row-1">登錄密码:</td>
+                <td class="row-2"><input type="text" name="user_password"
+                   value="{$data.user_password}"></td>
+              </tr>
+              {/if}
+              <tr>
+                  <td class="row-1">聯絡電話:</td>
+                  <td class="row-2"><input type="text" name="user_phone"
+                     value="{$data.user_phone}"></td>
+                </tr>
+              <tr>
+                  <tr>
+                      <td class="row-1">用户組別:</td>
+                      <td class="row-2"> 
+                        <select  name="group_id">
+                          {volist name="poplist" id="rec" }
+                          {if condition="$data.group_id ==$rec.group_id"}
+                          <option value={$rec.group_id} selected>{$rec.group_name}</option>
+                          {else/}
+                          <option value={$rec.group_id}>{$rec.group_name}</option>
+                          {/if}
+                          {/volist}
+                        </select>
+                      
+                      </td>
+                    </tr>
+                <td class="row-1">是否啓用：</td>
+                <td class="row-2">
+                    {if condition="$data.user_status ==1"}
+                    <input type="checkbox" name="user_status" checked="checked" />
+                    {else/}
+                    <input type="checkbox" name="user_status"  />
+                    {/if}
+              </tr>
+            </table>
+            <p class="text-center">
+                <button type="submit" class="pure-button pure-button-primary  icon-check-square-o" onclick="return checkedit()">儲存</button>
+                {if condition="$data.id >'0'"}
+                &nbsp;&nbsp; <button type="submit"
+                class="button border-red" 
+                onclick="return checkdel()">
+                 <span   class="icon-trash-o"></span> 删除</button>
+                {/if}
+             &nbsp;&nbsp; <a class="pure-button" href="{:url('Index/user/index')}" onclick="return cancel()">取消</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function checkedit(){
+    if(confirm("您確定要修改嗎?")){
+      document.getElementById("savetype").value = "save";
+       return true;
+    }else{
+      return false;
+    }
+  }
+  function checkdel(){
+    if(confirm("您確定要删除此记录嗎?")){
+      document.getElementById("savetype").value = "del";
+       return true;
+    }else{
+      return false;
+    }
+  }
+  function cancel(){
+    if(confirm("您確定要取消嗎?")){
+       return true;
+    }else{
+      return false;
+    }
+  }
+  </script>
+  
+
+
+

@@ -1,0 +1,73 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+
+
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">考試清單</strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+          <div class="text-center">
+            <form id="search_form" action="{:url('index/exam/search')}" method="get" class="pure-form">
+              按日期
+              <input type="date" name="examdate" id="examdate" class="pure-input-1-3 date" 
+              placeholder="0000-00-00" autocomplete="off" value="{$exam_date}"
+              />
+              <button type="submit" class="pure-button pure-button-primary">查詢</button>
+             <!--     <a class="pure-button" onclick='return cancel({$todaylistdata0})' >打印测试</a>-->
+            </form>
+          </div>
+          <br />
+          <h2>{$examtitle}</h2><br />
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+
+                <th>考試類別</th>
+                <th>報考類型</th>
+                <th>姓名</th>
+                <th>聯絡電話</th>
+                <th>考試時間</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="todaylistdata" id="trow" }
+              <tr>
+                <td>{$trow.learning_type}</td>
+
+                <td class="type">{$trow.car_type}</td>
+                <td class="name">
+                  <a href="{:url('index/student/read')}?id={$trow.student_id}&worklog=0">
+                      {$trow.student_name}&nbsp;{$trow.student_foreign_surname},{$trow.student_foreign_name}
+                      </a>
+                </td>
+                <td>{$trow.student_phone}</td>
+                <td>{$trow.learning_paper_time}</td>
+
+              </tr>
+              {/volist}
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                   <th></th>
+                <th></th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{include file="footer" /}

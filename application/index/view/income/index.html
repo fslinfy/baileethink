@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+<link rel="stylesheet" href="__STATIC__/css/admin.css">
+<!-- <link rel="stylesheet" href="__STATIC__/css/bootstrap.min.css"> -->
+<script src="__STATIC__/js/jquery.js"></script>
+<script src="__STATIC__/js/pintuer.js"></script>
+<!-- <script src="__STATIC__/js/bootstrap.min.js"></script> -->
+
+</head>
+<body>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder">收入統計</strong></div>
+<!--   <div class="padding border-bottom">  
+  <a class="button border-yellow" href='{:url('index/group/create')}'
+      ><span class="icon-plus-square-o"></span> 添加</a>
+  </div>  -->
+</div>
+
+  <table class="table table-hover text-center">
+    <tr>
+      <th width="25%">本日</th>
+      <th width="25%">本週</th>
+      <th width="25%">本月</th>
+      <th width="25%">本年</th>
+    </tr>
+
+    <?php
+      #var_dump($data);
+      if($data != 'empty'){
+        foreach($data as $value){
+          #var_dump($value);
+        echo '<tr>';
+        echo '<td>'.$value['create_time'].'</td>';
+        echo '<td>'.$value['msg_phone'].'</td>';
+        echo '<td>'.$value['msg_staff'].'</td>';
+        echo '<td>'.$value['msg_content'].'</td>';
+        echo '<td>'.$value['msg_status'].'</td>';
+
+        echo '<td><div class="button-group">';
+        echo '<a class="button border-main" ';
+        #echo 'href="'.url('index/msg/edit').'?id='.$value['group_id'].'"';
+        #echo '><span class="icon-edit"></span> 修改</a>';
+    
+        echo '<a class="button border-red" method="delete" href= ';
+        echo '"'.url('index/msg/delete').'?id='.$value['msg_id'].'"';
+        echo 'onclick="return del()"';
+        echo '><span class="icon-trash-o"></span> 删除</a>';
+        echo '</div></td>';
+        echo '</tr> ';
+      }
+    }
+    ?>       
+    
+  </table>
+</div>
+<script type="text/javascript">
+function del(id,mid){
+	if(confirm("您确定要删除吗?")){
+	   return id,mid
+	}
+}
+</script>
+
+</body></html>

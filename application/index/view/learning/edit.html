@@ -1,0 +1,439 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">
+                    {if condition="$data.learning_id >'0'"}修改资料
+                    {else/}增加资料
+                    {/if}
+                  </strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+          <form method="post" class="pure-form" action="<?php
+            echo url('Index/learning/update').'?id='.$data['learning_id'] ?>">
+
+          <input type="hidden" name="id" value="{$data['learning_id']}" />
+            <input type="hidden" name="savetype" id="savetype" value="edit" />
+            <table class="pure-table data-table data-table-edit">
+              <tr>
+
+                  <td class="row-1">執照類別:</td>
+                <td class="row-2">
+                  <select name="learning_license_type">
+                    
+                    {if condition="$data.learning_license_type =='特別駕駛許可證'"}
+                    <option value='澳門駕駛執照' >澳門駕駛執照</option>
+                    <option value='特別駕駛許可證' selected>特別駕駛許可證</option>
+
+                    {else/}
+                    <option value='澳門駕駛執照' selected >澳門駕駛執照</option>
+                    <option value='特別駕駛許可證' >特別駕駛許可證</option>
+                    {/if}
+                    
+                  </select>
+
+                </td>
+              </tr><tr>
+                <td class="row-1">車類:</td>
+                <td class="row-2">
+                  <select name="car_type_id">
+                    {volist name="poplist" id="rec" }
+                    {if condition="$data.car_type_id ==$rec.car_type_id"}
+                    <option value={$rec.car_type_id} selected>{$rec.car_type_type}:{$rec.car_type}</option>
+                    {else/}
+                    <option value={$rec.car_type_id}>{$rec.car_type_type}:{$rec.car_type}</option>
+                    {/if}
+                    {/volist}
+                  </select>
+                </td>
+                  {if condition="$data.learning_id >'0' "}
+                 <td>
+
+                     <a class="pure-button button-mini"  onclick='return print("{$data.learning_id}","{__STATIC__}")'> 
+                       <i class="fa fa-print"></i>
+                     <img src="__STATIC__/images/print.gif"> 打印</a> 
+        <a class="pure-button button-mini" href=""><i class="fa fa-print"></i>
+        <img src="__STATIC__/images/print.gif"> 打印背面</a>
+       
+             </td>
+             {/if}
+              </tr>
+
+              <tr>
+                <td class="row-1">報考類型:</td>
+                <td class="row-2">
+                  <select name="learning_type_id">
+                    {volist name="plist" id="prec" }
+                    {if condition="$data.learning_type_id ==$prec.learning_type_id"}
+                    <option value={$prec.learning_type_id} selected>{$prec.learning_type}</option>
+                    {else/}
+                    <option value={$prec.learning_type_id}>{$prec.learning_type}</option>
+                    {/if}
+                    {/volist}
+                  </select>
+
+                </td>
+              </tr>
+              <tr>
+                <td class="row-1">考試日期:</td>
+                <td class="row-2">
+                  <input type="date" name="learning_paper_date" value="{$data.learning_paper_date}" />
+                </td>
+              </tr>
+              <tr>
+                <td class="row-1">考試時間:</td>
+                <td class="row-2">
+                  <input type="text" name="learning_paper_time" value="{$data.learning_paper_time}"
+                  min="08:00" max="18:00"  pattern="[0-9]{2}:[0-9]{2}"/>
+                </td>
+              </tr>
+              <tr>
+
+              <tr>
+                <td class="row-1">考試結果:</td>
+                <td class="row-2">
+                  <select name="learning_paper_result" value="{$data.learning_paper_result}">
+                    {volist name="resultlist" id="prec" }
+                    {if condition="$data.learning_paper_result ==$prec.name"}
+                    <option value={$prec.name} selected>{$prec.name}</option>
+                    {else/}
+                    <option value={$prec.name}>{$prec.name}</option>
+                    {/if}
+                    {/volist}
+
+
+                  </select>
+                </td>
+              </tr>
+
+              <tr>
+                <td class="row-1">考試费用:</td>
+                <td class="row-2">
+                  <input type="number" name="learning_price" value={$data.learning_price}
+                  onkeyup="this.value=this.value.replace(/[^0-9\.]/g,'')" 
+
+                   onafterpaste="this.value=this.value.replace(/[^\d.]/g,'')" />
+                   {if condition=" $data.learning_pay_price!=0"}
+                  &nbsp;&nbsp; 已缴款：<input type="text" name="learning_pay_price" readonly value={$data.learning_pay_price}>
+                {/if}
+                </td>
+              </tr>
+              <tr>
+              <tr>
+                <td class="row-1">師傅:</td>
+                <td class="row-2">
+                  <select name="coach_name" >
+                    <option value=""></option>
+                    {volist name="coachlist" id="prec" }
+                    {if condition="$data.coach_name ==$prec.coach_name"}
+                    <option value={$prec.coach_name} selected>{$prec.coach_name}</option>
+                    {else/}
+                    <option value={$prec.coach_name}>{$prec.coach_name}</option>
+                    {/if}
+                    {/volist}
+
+
+                  </select>
+                </td>
+              </tr>
+              <tr>
+
+                <td class="row-1">此项目已完结：</td>
+                <td class="row-2">
+                  {if condition="$data.learning_status ==1"}
+                  <input type="checkbox" name="learning_status" checked="checked" style="margin-top:10px; " />
+                  {else/}
+                  <input type="checkbox" name="learning_status" style="margin-top:10px; " />
+                  {/if}
+              </tr>
+            </table>
+            <p class="text-center">
+              <button class="button bg-main icon-check-square-o" type="submit" onclick="return checkedit()"> 修改</button>
+
+              {if condition="$data.learning_id >'0' && $data.learning_pay_price==0"}
+              &nbsp;&nbsp; <button type="submit"
+               class="button border-red" 
+               onclick="return checkdel()">
+                <span   class="icon-trash-o"></span> 删除</button>
+              {/if}
+              &nbsp;&nbsp;<a class="button border-red" href='{:url("index/Student/read")}?id={$data.student_id}'
+                onclick="return cancel()"> 返回</a>
+
+
+
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" charset="utf-8">
+  function checkedit() {
+    if (confirm("您確定要修改嗎?")) {
+      document.getElementById("savetype").value = "save";
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function checkdel() {
+    if (confirm("您確定要删除此记录嗎?")) {
+      document.getElementById("savetype").value = "del";
+      return true;
+    } else {
+      return false;
+    }
+  }
+  function cancel() {
+      return true;
+    
+    if (confirm("您確定要取消嗎?")) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  $(document).ready(function () {
+
+
+  });
+    var LODOP; //声明为全局变量   
+	function print(id,b) {
+
+
+//var popupWindow = window.open('header0.html','popUpWindow','height=500,width=500,left=100,top=100,resizable=yes,scrollbars=yes,toolbar=yes,menubar=no,location=no,directories=no, status=yes');
+//return;
+    if (CheckIsInstall()){	
+    var printdata=getprintdata(id);
+    }
+	};
+	function Design() {		
+		CreateFullBill();
+//		LODOP.SET_SHOW_MODE("HIDE_ITEM_LIST",true);//设置对象列表默认处于关闭状态
+//		LODOP.SET_SHOW_MODE("TEXT_SHOW_BORDER",1); //设置字符编辑框默认为single	
+		LODOP.PRINT_DESIGN();		
+	};
+
+  function CheckIsInstall() {	 
+		try{ 
+		  var LODOP=getLodop(); 
+
+      console.log(LODOP);
+      
+			if (LODOP.VERSION) {
+				/*if (LODOP.CVERSION)
+				 alert("当前有C-Lodop云打印可用!\n C-Lodop版本:"+LODOP.CVERSION+"(内含Lodop"+LODOP.VERSION+")"); 
+				 else
+				 alert("本机已成功安装了Lodop控件！\n 版本号:"+LODOP.VERSION); 
+         */
+         return true;   
+			};
+		 }catch(err){ 
+ 		 } 
+      return false;
+	}; 
+
+/*
+	function RealPrint() {		
+		CreateDataBill();
+		//云打印C-Lodop返回结果用回调函数:
+		if (LODOP.CVERSION) {
+			CLODOP.On_Return=function(TaskID,Value){ if (Value) alert("已发出实际打印命令！"); else alert("放弃打印！"); };
+			LODOP.PRINTA();
+			return;
+		};
+		//控件返回结果用语句本身：
+		if (LODOP.PRINTA()) 
+		   alert("已发出实际打印命令！"); 
+		else 
+		   alert("放弃打印！"); 
+	};	*/
+  
+function getprintdata(id){
+
+  //  $id = document.getElementById("receipt_type_id").value;
+    // var URL = 'http://thinkphp.test/index.php/index/mysqlaction/getlearning?id=' +id;
+            var URL = '/index/mysqlaction/getlearning?id=' +id;
+            $.ajax({
+                url: URL,//提交访问的URL 
+                type: 'GET',//提交的方法 
+                dataType: 'text',//返回的内容的类型，由于PHP文件是直接echo的，那么这里就是text 
+                timeout: 1000,//超时时间 
+                error: function () { //如果出错，执行函数 
+                    alert('Error loading XML document');
+                },
+                success: function (data) {
+                   
+                   // console.log(data);
+                    var jsondata = eval('(' + data + ')');//json转成object
+                   //console.log(jsondata[0]);
+                   		CreateFullBill(jsondata[0]);
+                  //	LODOP.PRINT_DESIGN();		
+	                 	LODOP.PREVIEW();		
+                }
+            });
+}
+	function CreateFullBill(prtdata) {
+		LODOP=getLodop();  
+
+
+    LODOP.ADD_PRINT_SETUP_BKIMG("<img border='0' src='/static/images/form-iacm-no1.png'>");
+		LODOP.SET_SHOW_MODE("BKIMG_LEFT",1);
+		LODOP.SET_SHOW_MODE("BKIMG_TOP",1);
+		//LODOP.SET_SHOW_MODE("BKIMG_WIDTH","210mm");
+    	LODOP.SET_SHOW_MODE("BKIMG_WIDTH","183mm");
+		//LODOP.SET_SHOW_MODE("BKIMG_HEIGHT","99mm"); //这句可不加，因宽高比例固定按原图的
+		LODOP.SET_SHOW_MODE("BKIMG_IN_PREVIEW",1);		
+
+
+ //  LODOP.SET_PRINT_STYLE("FontName","楷体");
+ LODOP.SET_PRINT_STYLE("FontSize",9);
+ LODOP.SET_PRINT_STYLE("Bold",1);
+
+
+    if (prtdata.learning_license_type=='澳門駕駛執照'){
+  	LODOP.ADD_PRINT_TEXT(115,87,22,22,'x');
+    }else{
+  	LODOP.ADD_PRINT_TEXT(115,305,22,22,'x');
+ 
+    }
+
+
+	  LODOP.ADD_PRINT_TEXT(157,80,100,22,prtdata.student_foreign_surname);
+ 
+  	LODOP.ADD_PRINT_TEXT(187,80,100,22,prtdata.student_foreign_name);
+
+  	LODOP.ADD_PRINT_TEXT(220,84,40,22,prtdata.student_sex);
+
+
+    var d = new Date(prtdata.student_brithday);
+
+    LODOP.ADD_PRINT_TEXT(223,196,40,22,d.getDay());
+ 
+    LODOP.ADD_PRINT_TEXT(223,218,40,22,d.getMonth());
+
+    LODOP.ADD_PRINT_TEXT(223,248,60,22,d.getFullYear());
+
+  	LODOP.ADD_PRINT_TEXT(220,377,150,22,prtdata.student_brith_location);
+
+ if (prtdata.student_type=='BM'){
+  	LODOP.ADD_PRINT_TEXT(253,168,22,22,'x');
+    
+ }else{
+   	LODOP.ADD_PRINT_TEXT(266,168,22,22,'x');
+
+        LODOP.ADD_PRINT_TEXT(266,180,150,22,prtdata.student_type);
+ }
+
+
+  	LODOP.ADD_PRINT_TEXT(250,340,100,22,prtdata.student_idcard_number);
+  
+
+  	LODOP.ADD_PRINT_TEXT(290,96,400,22,prtdata.student_location);
+ 
+
+
+
+  	LODOP.ADD_PRINT_TEXT(320,57,40,22,prtdata.student_street_number);
+ 
+
+  	LODOP.ADD_PRINT_TEXT(315,365,100,22,prtdata.student_phone);
+
+
+
+//语言
+switch(prtdata.student_language)
+{
+case '中文':
+	LODOP.ADD_PRINT_TEXT(346,185,22,22,'x');
+
+    break;
+    case '葡文':
+        LODOP.ADD_PRINT_TEXT(346,236,22,22,'x');
+    break;
+    case '中葡文':
+    LODOP.ADD_PRINT_TEXT(346,303,22,22,'x');
+
+    break;
+    default:
+    LODOP.ADD_PRINT_TEXT(346,412,22,22,'x');
+
+    break;
+}
+
+
+switch(prtdata.student_eyesight)
+{
+    case '戴眼鏡':
+    LODOP.ADD_PRINT_TEXT(387,109,22,22,'x');
+     break;
+    case '戴眼鏡或隱形眼鏡':
+    LODOP.ADD_PRINT_TEXT(387,185,22,22,'x');
+     break;
+    case '健康證明書':
+    LODOP.ADD_PRINT_TEXT(387,295,22,22,'x');
+     break;
+}
+
+switch(prtdata.remark1)
+{
+    case 'CICL':
+    LODOP.ADD_PRINT_TEXT(460,57,22,22,'x');
+      break;
+    case 'A':
+    LODOP.ADD_PRINT_TEXT(460,118,22,22,'x');
+  
+    LODOP.ADD_PRINT_TEXT(460,142,40,22,prtdata.remark2);
+
+    LODOP.ADD_PRINT_TEXT(460,185,40,22,prtdata.remark3);
+    break;
+    case 'B':
+    LODOP.ADD_PRINT_TEXT(460,244,22,22,'x');
+  
+      LODOP.ADD_PRINT_TEXT(460,266,120,22,prtdata.remark2);
+    
+      break;
+    case 'C':
+    LODOP.ADD_PRINT_TEXT(460,362,22,22,'x');
+      break;
+    
+    case 'D':
+    LODOP.ADD_PRINT_TEXT(496,57,22,22,'x');
+ 
+     LODOP.ADD_PRINT_TEXT(496,80,40,22,prtdata.remark2);
+      break;
+    case 'E':
+    LODOP.ADD_PRINT_TEXT(496,118,22,22,'x');
+      break;
+    default:
+    LODOP.ADD_PRINT_TEXT(496,185,22,22,'x');
+
+    LODOP.ADD_PRINT_TEXT(496,195,180,22,prtdata.car_type);
+
+      break;
+}
+ 
+  	LODOP.ADD_PRINT_TEXT(463,583,75,22,prtdata.coach_code);
+
+  	LODOP.ADD_PRINT_TEXT(490,532,125,22,prtdata.coach_name);
+  
+  	LODOP.ADD_PRINT_TEXT(596,603,60,22,prtdata.setting_school_number);
+
+  	LODOP.ADD_PRINT_TEXT(707,517,137,22,prtdata.setting_school_phone);
+
+    return;
+
+
+};	
+  
+</script>

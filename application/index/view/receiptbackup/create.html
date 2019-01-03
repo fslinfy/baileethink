@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="renderer" content="webkit">
+<title></title>
+<link rel="stylesheet" href="__CSS__/pintuer.css">
+<link rel="stylesheet" href="__CSS__/admin.css">
+<!-- <link rel="stylesheet" href="__STATIC__/css/bootstrap.min.css"> -->
+<script src="__JS__/jquery.js"></script>
+<script src="__JS__/pintuer.js"></script>
+<!-- <script src="__STATIC__/js/bootstrap.min.js"></script> -->
+</head>
+<body>
+<div class="panel admin-panel">  
+  <div class="panel admin-panel margin-top" id="add">
+  <div class="panel-head"><strong><span class="icon-pencil-square-o"></span>增加內容</strong></div>
+  <div class="body-content">
+    <form method="post" class="form-x" action="{:url('Index/receipt/save')}">  
+    	<div class="form-group">
+        <div class="label">
+          <label>收據號碼</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" value="" name="receipt_number" data-validate="required:請輸入收據號碼" />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>收據內容</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" name="receipt_content" value=""  />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>總金額</label>
+        </div>
+        <div class="field">
+           <input type="text" class="input w50" name="receipt_total_price" value=""  />
+          <div class="tips"></div>
+        </div>
+        <div class="label">
+          <label>支付方式</label>
+        </div>
+        <div class="field">
+           <input type="text" class="input w50" name="receipt_pay_type" value=""  />
+          <div class="tips"></div>
+        </div>
+
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit" 
+              onclick="return add()"> 添加</button>
+          <a class="button border-red" href='{:url('Index/receipt/index')}' onclick="return cancel()"
+      ><span class="icon-trash-o"></span> 取消</a>  
+        </div>
+    </div>
+    </form>
+  </div>
+</div>
+
+<script type="text/javascript">
+function add(){
+	if(confirm("您確定要添加嗎?")){
+	   return true;
+	}else{
+    return false;
+  }
+}
+function cancel(){
+  if(confirm("您確定要取消嗎?")){
+     return true;
+  }else{
+    return false;
+  }
+}
+</script>
+
+</body></html>

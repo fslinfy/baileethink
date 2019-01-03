@@ -1,0 +1,113 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">
+                    {if condition="$data.id >'0'"}修改资料
+                  {else/}增加资料
+                   {/if}
+                </strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+          <form method="post" class="pure-form" action="<?php
+            echo url('Index/question/update').'?id='.$data['id'] ?>">
+
+            <input type="hidden" name="id" value="{$data['id']}" />
+            <input type="hidden"   name="savetype" id="savetype" value="edit" />
+            <table class="pure-table data-table data-table-edit">
+                <tr>
+                    <td class="row-1">題目編號：</td>
+                    <td class="row-2"><input type="text" 
+                      name="question_title_number" 
+                      value="{$data.question_title_number}"></td>
+                  </tr>
+
+              <tr>
+                <td class="row-1">題目:</td>
+                <td class="row-2"><input type="text" name="question_title" 
+                  value="{$data.question_title}" >
+                
+                </td>
+              </tr>
+              <tr>
+                  <td class="row-1">類型:</td>
+                  <td class="row-2"> 
+                    <select  name="question_type">
+                      {if condition="$data.question_type =='理论题'"}
+                      <option value="理论题" selected>理论题</option>
+                      <option value="技術題">技術題</option>
+      
+                      {else/}
+                      <option value="理论题">理论题</option>
+                      <option value="技術題" selected>技術題</option>
+      
+                      {/if}
+                    </select>
+                  
+                  </td>
+                </tr>
+              <tr>
+                <td class="row-1">冊數:</td>
+                <td class="row-2"><input type="text" name="question_book_number"
+                   value="{$data.question_book_number}"></td>
+              </tr>
+              <tr>
+                  <td class="row-1">主要題目:</td>
+                  <td class="row-2"><input type="text" name="question_main_title"
+                     value="{$data.question_main_title}"></td>
+                </tr>
+        
+            </table>
+            <p class="text-center">
+                <button type="submit" class="pure-button pure-button-primary  icon-check-square-o" onclick="return checkedit()">儲存</button>
+                {if condition="$data.id >'0'"}
+                &nbsp;&nbsp; <button type="submit"
+                class="button border-red" 
+                onclick="return checkdel()">
+                 <span   class="icon-trash-o"></span> 删除</button>
+                {/if}
+             &nbsp;&nbsp; <a class="pure-button" href="{:url('Index/question/index')}" onclick="return cancel()">取消</a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  function checkedit(){
+    if(confirm("您確定要修改嗎?")){
+      document.getElementById("savetype").value = "save";
+       return true;
+    }else{
+      return false;
+    }
+  }
+  function checkdel(){
+    if(confirm("您確定要删除此记录嗎?")){
+      document.getElementById("savetype").value = "del";
+       return true;
+    }else{
+      return false;
+    }
+  }
+  function cancel(){
+    if(confirm("您確定要取消嗎?")){
+       return true;
+    }else{
+      return false;
+    }
+  }
+  </script>
+  
+
+
+

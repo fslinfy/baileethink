@@ -1,0 +1,603 @@
+{include file="header0" /}
+
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder"> 学生资料</strong></div>
+              </td>
+
+            </tr>
+          </table>
+        </div>
+  
+
+          <div class="box-content">
+            <div id='p1'>
+               <div id='hl1'>
+            <a class="pure-button pure-button-primary pull-right button-large edit-data-button" 
+            href=<?php echo url('index/student/edit') ?>?id={$data.student_id}>
+            <i class="fa fa-pencil-square-o"></i> <span class="icon-edit"></span> 修改檔案</a>
+               </div>
+           
+
+        <h1>{$data.student_name} {$data.student_foreign_surname}, {$data.student_foreign_name}</h1>
+        <h3 class="id">{$data.student_type} &nbsp;  {$data.student_idcard_number}</h3>
+        <p>建立時間：{$data.create_time}<span class="divider">|</span>
+          更新時間：{$data.update_time}</p>
+        <hr/>
+        <table class="pure-table data-table">
+          <tr>
+            <td class="row-1">身份證：</td>
+            <td class="row-2">
+              <span class="id"><b>{$data.student_idcard_number}</b></span>
+               有效日期 <span class="effective-date"><b>{$data.student_valid_date}</b></span> 由<b> {$data.student_card_department}</b>發出        </td>
+            <td class="row-1">姓名：</td>
+            <td class="row-2">{$data.student_name} {$data.student_foreign_surname}, {$data.student_foreign_name}</td>
+          </tr>
+          <tr>
+            <td class="row-1">性別：</td>
+            <td class="row-2">{$data.student_sex}</td>
+            <td class="row-1">出生資料：</td>
+            <td class="row-2"><span class="birthday"><b>{$data.student_brithday}</b></span> 於 <span class="birthplace"><b>{$data.student_brith_location}</b></span> 出生</td>
+          </tr>
+          <tr>
+            <td class="row-1">語言：</td>
+            <td class="row-2">{$data.student_language}</td>
+            <td class="row-1">聯絡電話：</td>
+            <td class="row-2"><span class="tel"><b>{$data.student_phone}</b></span></td>
+          </tr>
+          <tr>
+            <td class="row-1">葡文住址：</td>
+            <td class="row-2">
+                ({$data.student_street_number}) {$data.student_proguese_location}</td>
+            <td class="row-1">中文住址：</td>
+            <td class="row-2">{$data.student_location}</td>
+          </tr>
+          <tr>
+            <td class="row-1">視力：</td>
+            <td class="row-2">{$data.student_eyesight}</td>
+            <!--            <td class="row-1 effective-date">模擬筆試賬戶過期時間：</td>
+                    <td class="row-2 effective-date">2019-11-27 18:11:42</td>-->
+                  </tr>
+          <tr>
+            <td class="row-1">備註：</td>
+            <td class="row-2" colspan="3">{$data.student_remark}</td>
+          </tr>
+        </table>
+            </div>
+        <p class="text-center">
+        <!-- <a class="pure-button button-mini" href="#send-sms" rel="modal:open"><i class="fa fa-bullhorn"></i> 按這發送訊息</a>-->
+          <a class="pure-button button-mini" onclick="return printstudent()"><i class="fa fa-print"></i> 打印學生資料</a>
+        </p>
+        <br/>
+      </div><!--box-content-->
+    
+       </div>
+    </div>
+  </div>
+
+  <br />
+
+
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder"> 学习进度</strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+        
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>車類</th>
+                <th>考試项目</th>
+                <th>考試日期</th>
+                <th>考試時間</th>
+                <th>考試結果</th>
+                <th>考試费用</th>
+                <th>師傅</th>
+                <th>已交费用</th>
+                <th>状态</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="learning_data" id="rec" }
+              <tr>
+                <td>{$rec.car_type}</td>
+                <td><a href=<?php echo url('index/learning/edit') ?>?id={$rec.learning_id}
+                    >{$rec.learning_type}</a>
+                </td>
+                <td>{$rec.learning_paper_date}</td>
+                <td>{$rec.learning_paper_time}</td>
+                <td>{$rec.learning_paper_result}</td>
+                <td>{$rec.learning_price}</td>
+
+                <td>{$rec.coach_name}</td>
+                <td><a class="button border-main" href=<?php echo url('index/receipt/learningreceipt') ?>?learningid={$rec.learning_id}
+                    > {$rec.learning_pay_price}</a>
+                </td>
+                <td>
+                  {if condition="$rec.learning_status ==1"}完结
+                  {/if}
+
+                </td>
+
+                <td style="text-align:center;">
+                  <div class="button-group">
+                    <a class="button border-main" href=<?php echo url('index/learning/edit') ?>?id={$rec.learning_id}
+                      ><span class="icon-edit"></span> 查询</a>
+
+                  </div>
+                </td>
+              </tr>
+              {/volist}
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>
+                  <div class="button-group"></div>
+                  <a class="button border-yellow" href=<?php echo url('index/learning/create') ?>>
+                    <span class="icon-plus-square-o"></span> 添加</a>
+        </div>
+        </th>
+        </tr>
+        </tbody>
+        </table>
+            <br />
+      </div>
+    </div>
+  </div>
+
+  <br />
+
+
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">收款记录</strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+                 
+                <th>收據日期</th>
+                <th>收據號碼</th>
+                <th>收據内容</th>
+                <th>總金額</th>
+                <th>经办人</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="receipt_data" id="rrec" }
+              <tr>
+              
+                <td>{$rrec.receipt_date}</td>
+                <td><a href=<?php echo url('index/receipt/edit') ?>?id={$rrec.receipt_id}&act=2
+                    >{$rrec.receipt_number}</a>
+                </td>
+                <td>{$rrec.receipt_content}</td>
+                <td>{$rrec.receipt_total_price}</td>
+                <td>{$rrec.modifiedBy}</td>
+                <td style="text-align:center;">
+                  <div class="button-group">
+                    <a class="button border-main" href=<?php echo url('index/receipt/edit') ?>?id={$rrec.receipt_id}&act=2
+                      ><span class="icon-edit"></span> 查询</a>
+
+                  </div>
+                </td>
+              </tr>
+              {/volist}
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                
+        </div>
+        </th>
+        </tr>
+        </tbody>
+        </table>
+        <br />
+      </div>
+    </div>
+  </div>
+
+<br/>
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">已有駕駛執照</strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+                 
+                <th>編號</th>
+                <th>车型</th>
+                <th>考試日期</th>
+                <th> 有效日期 </th>
+             
+                <th style="width:100;"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="license_data" id="rrec" }
+              <tr>
+              
+                <td>{$rrec.license_number}</td>
+                <td>{$rrec.car_type}</td>
+                <td>{$rrec.license_test_date}</td>
+                <td>{$rrec.license_valid_date}</td>
+                <td style="text-align:left; ">
+                    <div class="button-group">
+                        <a class="button border-red" method="delete" 
+                        href=<?php echo url('index/student/licensedelete') ?>?id={$rrec.license_id}
+                          onclick="return del()"><span class="icon-trash-o"></span> 删除</a>
+  
+                    </div>
+                  </td>
+                
+              </tr>
+              {/volist}
+              <tr>
+             <form method="post" class="form-x" action="{:url('index/student/licenseinsert')}">
+                <td>
+                  <div style="margin:2 10 2 0; ">
+                      <input type="text" class="input w150" value='' name="license_number" 
+                     />
+                  </div>
+              </td>
+                <td style="vertical-align: top;"                >
+                    <div >
+    
+                        <select name="car_type" class="input w150"  >
+                            <option value=''></option>
+                            {volist name="cartypelist" id="lrec" }
+                            <option value={$lrec.car_type}>{$lrec.car_type}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </td>
+                <td >
+                  <div style="margin:2 10 2 0; ">
+                      <input type="date" class="input w150"  name="license_test_date" 
+                      />
+                  </div>
+              </td>
+                <td>
+                    <div style="margin:2 10 2 0; ">
+                        <input type="date" class="input w150"  name="license_valid_date" 
+                        />
+                    </div>
+                </td>
+                
+              
+                <td style="vertical-align: top;"   >
+                    <div  >
+                     
+                        <button class="button bg-main icon-check-square-o" type="submit" 
+                        onclick="return insert()"> 記錄執照資料
+                        </button>
+    
+    
+    
+                    </div>
+                </td>
+              </form>
+            </tr>
+        </tbody>
+        </table>
+        <br />
+      </div>
+    </div>
+  </div>
+
+  <br/>
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">表格資料</strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+
+            <br /> <br />
+        <br />
+      </div>
+    </div>
+  </div>
+  <br />
+
+
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder">電話訊息(SMS)記錄</strong></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+           
+                <th>日期</th>
+                <th>電話</th>
+                <th>內容</th>
+                <th>狀態</th>
+            
+              </tr>
+            </thead>
+            <tbody>
+
+              {volist name="msgs_data" id="rrec" }
+              <tr>
+              
+                <td>{$rrec.create_time}</td>
+        
+                <td>{$rrec.msg_phone}</td>
+                <td>{$rrec.msg_content}</td>
+                <td>
+                  <span class="text-success">
+                  {if condition="$rrec.msg_status==1"}發送成功
+                  {/if}
+                  </span>
+                </td>
+        
+              </tr>
+              {/volist}
+              <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+          </tr>
+        </tbody>
+        </table>
+        <br />
+
+
+
+          <div id='p2' hidden=true>
+          <table border="1" style="border:solid 1px black;border-collapse:collapse" width="100%" >
+            <thead>
+              <tr>
+                <th>車類</th>
+                <th>考試项目</th>
+                <th>考試日期</th>
+                <th>考試時間</th>
+                <th>考試結果</th>
+             
+                <th>師傅</th>
+             
+                <th>状态</th>
+         
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="learning_data" id="rec" }
+              <tr>
+                <td>{$rec.car_type}</td>
+                <td><a href=<?php echo url('index/learning/edit') ?>?id={$rec.learning_id}
+                    >{$rec.learning_type}</a>
+                </td>
+                <td>{$rec.learning_paper_date}</td>
+                <td>{$rec.learning_paper_time}</td>
+                <td>{$rec.learning_paper_result}</td>
+             
+
+                <td>{$rec.coach_name}</td>
+              
+                <td>
+                  {if condition="$rec.learning_status ==1"}完结
+                  {/if}
+
+                </td>
+
+              </tr>
+              {/volist}
+         
+        </tr>
+        </tbody>
+        </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
+<script src="__STATIC__/js/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+<div id="send-sms" class="send-sms" style="display:none;">
+<form id="send_form" action="" method="post" class="pure-form">
+  <input type="hidden" name="student_id" value="4166">
+  <h4>填寫電話訊息(SMS)內容</h4>
+  <p>流動電話
+    <select id="phone_num" name="phone_num">
+                  <option value="62261232">62261232</option>
+                </select>
+  </p>
+  <p>訊息內容 <b id="charNum"></b></p>
+  <p><textarea id="message_txt" name="message_txt"></textarea></p>
+  <p class="text-center">
+    <button type="submit" class="pure-button pure-button-primary">確定發送(SMS)</button>
+  </p>
+</form>
+</div>
+<script src="__STATIC__/js/jquery.maskedinput.min.js"></script>
+-->
+</div>
+</div>
+
+
+
+
+<script type="text/javascript">
+
+
+
+$(document).ready(function() {
+  $(".date").mask("9999-99-99");
+  $('#message_txt').keyup(function () {
+    var max = 60;
+    var msg_txt=$(this).val();
+    var len = $.trim(msg_txt).length;
+    if (len >= max) {
+      $('#charNum').html('<span class="req">文字內容已經超過上限60字</span>');
+    } else {
+      var char = max - len;
+      $('#charNum').text(' 可輸入剩餘字數:'+char);
+    }
+  });
+
+  //添加駕駛執照
+  $('#driver_form').submit(function() {
+    var is_validation=true;
+    $('#driver_form input,#driver_form select').each(function() {
+      var tmptxt=$(this).val();
+      if(tmptxt==''){
+        $(this).addClass('required');
+        is_validation=false;
+      }else{
+        $(this).removeClass('required');
+      }
+    });
+
+    if (is_validation) {
+      return true;
+    }
+    return false;
+  });
+
+  //發送短信
+  $('#send_form').submit(function() {
+    var is_validation=true;
+    $('#send_form textarea,#send_form input,#send_form select').each(function() {
+      var tmptxt=$.trim($(this).val());
+      if(tmptxt==''){
+        $(this).addClass('required');
+        is_validation=false;
+      }else{
+        $(this).removeClass('required');
+      }
+    });
+
+    if (is_validation) {
+      return true;
+    }
+    return false;
+  });
+
+  //表格創建
+  $('#select_form').change(function() {
+    var controller_name=$(this).val();
+    controller_name="https://bailee.clickrapp.com/admin/"+controller_name+".html";
+    $('#table_form').attr('action',controller_name);
+  });
+
+  //駕駛執照特別和普通切換
+  $('#special_license').change(function() {
+    var special_license=$(this).val();
+    var option_html=$('#'+special_license+'_option').html();
+    $('#license_category').html(option_html);
+  });
+});
+
+function insert() {
+
+
+
+  if (confirm("您確定要插入執照資料嗎?")) {
+    //document.getElementById("savetype").value = "";
+
+    return true;
+  } else {
+    return false;
+  }
+}
+function del(id, mid) {
+    if (confirm("您确定要删除吗?")) {
+      return id, mid
+    }
+  }
+
+  function printstudent()
+  {
+	  LODOP=getLodop();  
+		LODOP.PRINT_INIT("打印學生資料");
+
+		LODOP.ADD_PRINT_TEXT(29,40,800,50,"學生資料");
+
+		LODOP.SET_PRINT_STYLEA(0,"FontSize",18);
+		LODOP.SET_PRINT_STYLEA(0,"Bold",1);
+
+  	var strBodyStyle="<style>a {display: none;}.hiddentd {display: none;}</style>";
+		strBodyStyle=strBodyStyle+document.getElementById("p1").innerHTML;
+		
+
+    LODOP.ADD_PRINT_HTM(88,40,700,310,strBodyStyle);
+    LODOP.ADD_PRINT_RECT(400,40,700,1,0,2);
+
+		LODOP.ADD_PRINT_HTM(410,40,700,400,document.getElementById("p2").innerHTML);
+
+	
+	                 	LODOP.PREVIEW();	
+
+  }
+</script>
+{include file="footer" /}
+
+

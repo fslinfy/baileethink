@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title></title>
+    <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+    <link rel="stylesheet" href="__STATIC__/css/admin.css">
+    <script src="__STATIC__/js/jquery.js"></script>
+    <script src="__STATIC__/js/pintuer.js"></script>
+</head>
+
+<body>
+    <div class="form-group"></div>
+    <div class="panel admin-panel">
+
+        <table width="100%">
+            <tr>
+                <td>
+                    <div class="panel-head"><strong class="icon-reorder"> {$title}</strong></div>
+                </td>
+
+            </tr>
+        </table>
+
+        <div class="padding border-bottom">
+
+            <table width="100%" border=0>
+                <tr>
+                    <td width="70" style="vertical-align: middle;text-align: right; ">收據號碼:</td>
+                    <td style="vertical-align: middle; ">
+                        <div style="margin:2 10 2 0; ">
+                            <input type="text" value="{$data.receipt_number}" name="receipt_number" />
+                        </div>
+                    </td>
+                    <td width="70" style="vertical-align: middle;text-align: right; ">收款日期:</td>
+                    <td>
+                        <div style="margin:2 10 2 0; ">
+                            <input type="date"  value="{$data.receipt_date}" name="receipt_date" />
+                        </div>
+                    </td>
+
+                </tr>     <tr height="5"><td></td><td></td><td></td><td></td></tr>
+                <tr>
+                    <td width="70" style="vertical-align: middle; text-align: right;">收據说明:</td>
+                    <td>
+                        <div style="margin:2 10 2 0; ">
+                            <input type="text"  value="{$data.receipt_content}" name="receipt_content" />
+                        </div>
+                    </td>
+                    <td width="70" style="vertical-align: middle;text-align: right; ">收付方式:</td>
+                    <td>
+                        <div style="margin:2 10 2 0; ">
+                            <input type="text value="{$data.receipt_pay_type}" name="receipt_pay_type" />
+                        </div>
+                    </td>
+
+                </tr>
+
+            </table>
+        </div>
+    </div>
+    <table class="table table-hover text-center">
+        <tr>
+            <th>收據项目</th>
+
+            <th>数量</th>
+            <th>单价</th>
+            <th>金額</th>
+            <th>备注</th>
+            <th>操作</th>
+        </tr>
+
+        {volist name="mxlistdata" id="rec" }
+        <tr>
+            <td>{$rec.detail_item}</td>
+            <td>{$rec.detail_quantity}</td>
+            <td>{$rec.detail_price}</td>
+            <td>{$rec.detail_sum}</td>
+            <td>{$rec.detail_note}</td>
+
+            <td>
+                <div class="button-group">
+                    <a class="button border-red" method="delete" href=<?php echo url('index/receipt/delete') ?>?id={$rec.detail_id}
+                        onclick="return del()"><span class="icon-trash-o"></span> 删除</a>
+                </div>
+            </td>
+        </tr>
+        {/volist}
+    </table>
+    <div class="panel admin-panel">
+        <div class="padding border-bottom">
+            <table width="100%">
+                <tr>
+                    <td>
+                        <a class="button border-yellow" href=''><span class="icon-plus-square-o"></span>保存</a>
+                        <a class="button border-yellow" href=''><span class="icon-plus-square-o"></span>放弃</a>
+                    </td>
+
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript">
+        function del(id, mid) {
+            if (confirm("您确定要删除吗?")) {
+                return id, mid
+            }
+        }
+    </script>
+</body>
+
+</html>

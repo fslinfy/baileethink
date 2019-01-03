@@ -1,0 +1,35 @@
+{include file="header" /}
+<table class="table table-hover text-center">
+  <tr>
+    <th width="30%">題目編號</th>
+    <th width="40%">題目</th>
+    <th width="10%">類型</th>
+    <th width="20%">操作5</th>
+  </tr>
+  {volist name="listdata" id="rec" }
+  <tr>
+    <td>{$rec.question_title_number}</td>
+    <td>{$rec.question_title}</td>
+    <td>{$rec.question_type}</td>
+
+    <td>
+      <div class="button-group">
+        <a class="button border-main" href=<?php echo url('index/question/edit') ?>?id={$rec.question_id}><span class="icon-edit"></span>
+          修改</a>
+
+        <a class="button border-red" method="delete" href=<?php echo url('index/question/delete') ?>?id={$rec.question_id}
+          onclick="return del()"><span class="icon-trash-o"></span> 删除</a>
+      </div>
+    </td>
+  </tr>
+  {/volist}
+</table>
+<table width="100%">
+    <tr>
+      <td>
+        <div class="panel-head"><strong > {$listdata->render()} 总记录数（{$listdata->total()}）</strong></div>
+      </td>
+
+    </tr>
+  </table>
+{include file="footer" /}

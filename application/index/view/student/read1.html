@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="__CSS__/pintuer.css">
+  <link rel="stylesheet" href="__CSS__/admin.css">
+  <!-- <link rel="stylesheet" href="__STATIC__/css/bootstrap.min.css"> -->
+  <script src="__JS__/jquery.js"></script>
+  <script src="__JS__/pintuer.js"></script>
+  <!-- <script src="__STATIC__/js/bootstrap.min.js"></script> -->
+
+</head>
+
+<?php 
+  session('student_id',$data['student_id'],'think');
+?>
+
+<body>
+  <div class="panel admin-panel">
+
+    <div class="panel admin-panel margin-top" id="add">
+      <div class="body-content">
+        <div class="panel-head"><strong class="icon-reorder"> 學生檔案</strong></div>
+        <div class="panel-body">
+          <div class="table">
+            <tr>
+              <td>身份證：</td>
+              <td>
+                <span><b>{$data.student_idcard_number}</b></span>
+                有效日期 <span><b>{$data.student_valid_date}</b></span>
+                由<b> {$data.student_card_department} </b>發出 </td>
+              <hr>
+
+              <td>姓名：</td>
+              <td>{$data.student_name} {$data.student_foreign_surname}, {$data.student_foreign_name}</td>
+              <hr>
+
+              <td>性別：</td>
+              <td>{$data.student_sex}</td>
+              <hr>
+
+              <td>出生資料：</td>
+              <td><span><b>{$data.student_brithday}</b></span>
+                於 <span><b>{$data.student_brith_location}</b></span> 出生</td>
+              <hr>
+
+              <td>國籍 :</td>
+              <td><span><b>{$data.student_nationality}</b></span> </td>
+              <hr>
+
+              <td>語言 :</td>
+              <td><span><b>{$data.student_language}</b></span> </td>
+              <hr>
+
+              <td>聯絡電話 :</td>
+              <td><span><b>{$data.student_phone}</b></span> </td>
+              <hr>
+
+              <td>葡文住址 :</td>
+              <td><span><b>({$data.student_street_number})</b></span>
+                <span><b>{$data.student_proguese_location}</b></span> </td>
+              <hr>
+
+              <td>中文住址 :</td>
+              <td><span><b>{$data.student_location}</b></span> </td>
+              <hr>
+
+              <td>視力 :</td>
+              <td><span><b>{$data.student_eyesight}</b></span> </td>
+              <hr>
+
+              <td>備註 :</td>
+              <td><span><b>{$data.student_remark}</b></span> </td>
+              <hr>
+
+
+            </tr>
+          </div>
+
+        </div>
+
+        <div class="panel admin-panel">
+          <table width="100%">
+            <tr class="panel-head">
+              <td>
+                <div><strong class="icon-reorder"></strong> 學習進度
+                  </strong>
+
+                </div>
+              </td>
+              <td width="20%">
+                <a class="button border-yellow" href='{:url("index/learning/create")}'>
+                  <span class="icon-plus-square-o"></span>
+                  添加</a>
+              </td>
+            </tr>
+
+          </table>
+
+        </div>
+
+        <table class="table table-hover text-center">
+          <tr>
+            <th>車類</th>
+            <th>考試项目</th>
+            <th>考試日期</th>
+            <th>考試時間</th>
+            <th>考試結果</th>
+            <!--      <th >技術考試日期</th>
+      <th >技術考試時間</th>
+      <th >技術考試結果</th>
+      <th >重考考試日期</th>
+      <th >重考考試時間</th>-->
+            <th>考試费用</th>
+            <th>師傅</th>
+            <th>已交费用</th>
+            <th>状态</th>
+            <th></th>
+          </tr>
+          {volist name="learning_data" id="rec" }
+          <tr>
+            <td>{$rec.car_type}</td>
+            <td><a href=<?php echo url('index/learning/edit') ?>?id={$rec.learning_id}
+                >{$rec.learning_type}</a>
+            </td>
+            <td>{$rec.learning_paper_date}</td>
+            <td>{$rec.learning_paper_time}</td>
+            <td>{$rec.learning_paper_result}</td>
+            <td>{$rec.learning_price}</td>
+
+            <td>{$rec.coach_name}</td>
+            <td><a class="button border-main" href=<?php echo url('index/receipt/learningreceipt') ?>?learningid={$rec.learning_id}
+                > {$rec.learning_pay_price}</a>
+            </td>
+            <td>
+                {if condition="$rec.learning_status ==1"}完结
+              {/if}
+            
+            </td>
+            <td>
+            <td>
+              <div class="button-group">
+                <a class="button border-main" href=<?php echo url('index/learning/edit') ?>?id={$rec.learning_id}
+                  ><span class="icon-edit"></span> 修改</a>
+                <a class="button border-red" method="delete" href=<?php echo url('index/learning/delete') ?>?id={$rec.learning_id}
+                  onclick="return del()"
+                  ><span class="icon-trash-o"></span> 删除</a>
+              </div>
+            </td>
+          </tr>
+          {/volist}
+
+
+
+        </table>
+      </div>
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <a class="button border-main" href='{:url("index/student/edit")}?id={$data["student_id"]}'>
+            <span class="icon-edit"></span> 修改</a>
+
+          <a class="button border-orange" href=<?php $worklog_flag=session('worklog','','think'); 
+          if($worklog_flag) {
+            echo '"' .url('index/worklog/read'.$worklog).'"'; 
+          } 
+            else {
+              echo '"' .url('index/student/index').'"'; 
+            } ?>
+
+            >返回</a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  </div>
+  <script type="text/javascript">
+    function edit() {
+      if (confirm("您確定要修改嗎?")) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    function cancel() {
+      if (confirm("您確定要取消嗎?")) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+    function del() {
+      if (confirm("您確定要刪除嗎?")) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  </script>
+
+</body>
+
+</html>

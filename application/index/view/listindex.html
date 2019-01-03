@@ -1,0 +1,117 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder"> {$title}</strong></div>
+              </td>
+              {if condition="$url>''"}
+              <td width="100">
+                <a class="button border-yellow" style="height:'30';" href='{:url($url."/create")}'>
+                  <span class="icon-plus-square-o"></span> 添加</a>
+              </td>
+              {/if}
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+                <?php
+
+                    if($titlename != 'empty') {
+                      foreach($titlename as $t) {
+                        echo '<th>'.$t.'</th>';
+                      }
+                    }
+                  ?>
+                  {if condition="$url1>''"}
+                  <th>操作</th>
+                  {/if}
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="listdata" id="row" }
+              <tr>
+                <?php
+                $id_flag = 0;
+                foreach($fieldname as $onefield){
+                  if(strpos($onefield,'status')>0)
+                  {
+                  if ($row->$onefield>0){ echo "<td>啓用</td>" ;
+                }else{ echo "<td></td>" ;}
+   
+                  }
+                  else
+                  {
+
+                  if ($onefield=='')
+                  {
+                    echo '<td></td>';
+                  }else
+                  {
+                    $mxurl=url($url.'/edit').'?id='.$row->$idfield;
+                    $classname='';
+                    $fieldvalue =$row->$onefield;
+                    if ($onefield=='student_idcard_number')
+                    {
+                      $classname='class="id"';
+                    }else
+                    {
+                       if ($onefield=='student_name')
+                          {
+                            $classname='class="name"';
+                          }
+                    
+                    }
+                    if($id_flag == 0 ){
+                        echo '<td '.$classname.'><a href=';
+                        echo url($url.'/edit').'?id='.$row->$idfield;
+                        echo ">".$fieldvalue.'</a></td>';
+                        $id_flag = 1;
+                    }
+                    else
+                    {
+                        echo '<td '.$classname.' >'.$fieldvalue.'</td>';
+                    }
+                }
+              }
+                }  
+              ?>
+                  {if condition="$url1>''"}
+                  <td width="120">
+                    <a class="button border-main" <?php echo ' href=' ; echo url($url1. '/edit'). '?id='.$row->$idfield; ?> >
+                    <span class="icon-edit"></span>
+                    查询</a>
+                  </td>
+                  {/if}
+              </tr>
+              {/volist}
+            </tbody>
+          </table>
+          <br />
+          <table width="100%" border="0">
+            <tr>
+              
+               <td style="text-align:right; ">
+                {$listdata->render()} 
+              </td>
+              <td style="vertical-align:middle; ">
+                总记录数（{$listdata->total()}）
+              </td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{include file="footer" /}

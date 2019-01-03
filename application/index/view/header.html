@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="renderer" content="webkit">
+  <title></title>
+  <link rel="stylesheet" href="__STATIC__/css/main.css">
+  <link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+  <link rel="stylesheet" href="__STATIC__/css/pintuer.css">
+  <link rel="stylesheet" href="__STATIC__/css/admin.css">
+  <!-- <link rel="stylesheet" href="__STATIC__/css/bootstrap.min.css"> -->
+  <script src="__STATIC__/js/jquery.js"></script>
+  <script src="__STATIC__/js/pintuer.js"></script>
+     <script src="__STATIC__/js/LodopFuncs.js"></script>
+  <!-- <script src="__STATIC__/js/bootstrap.min.js"></script> -->
+</head>
+
+<body>
+  <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=820 height=450> 
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=820 height=450 pluginspage="install_lodop32.exe"></embed>
+</object> 
+  <div class="panel admin-panel">
+
+    <table width="100%">
+      <tr>
+        <td>
+          <div class="panel-head"><strong class="icon-reorder"> {$title}</strong></div>
+        </td>
+        {if condition="$url>''"}
+        <td width="100">
+          <a class="button border-yellow" href='{:url($url)}'>
+            <span class="icon-plus-square-o"></span> 添加</a>
+        </td>
+        {/if}
+      </tr>
+    </table>
+
+    <!--<div class="padding border-bottom">
+      <a class="button border-yellow" href='{:url($url)}'><span class="icon-plus-square-o"></span> 添加</a>
+    </div>-->
+  </div>

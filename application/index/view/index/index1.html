@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]><html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]><html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]><html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>駕駛學校工作平台</title>
+  <meta name="author" content="Clickr 力嘉 - clickrweb.com">
+  <meta name="viewport" content="width=980" />
+
+  <link rel="shortcut icon" href="__STATIC__/images/favicon.png">
+  <link rel="apple-touch-icon" href="__STATIC__/images/apple-touch-icon.png">
+
+  <link rel="stylesheet" href="__STATIC__/css/main.css">
+  <link rel="stylesheet" href="__STATIC__/css/font-awesome.min.css">
+ <!--
+  <script src="__STATIC__/js/jquery-1.10.2.min.js"></script>
+ 
+  <script src="__STATIC__/js/modernizr-2.6.2.min.js"></script>
+-->
+  <script src="__STATIC__/js/jquery.js"></script>
+  <script src="__STATIC__/js/pintuer.js"></script>
+     <script src="__STATIC__/js/LodopFuncs.js"></script>
+</head>
+
+<body>
+  <object id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=820 height=450> 
+	<embed id="LODOP_EM" type="application/x-print-lodop" width=820 height=450 pluginspage="install_lodop32.exe"></embed>
+</object> 
+
+  <header>
+    <nav>
+      <div class="grid-container">
+        <a href="#" class="title">百利駕駛學校</a>
+        <ul>
+          <li><span class="welcome">歡迎你！[
+              <?php echo session('login_username','','think');?>]</span></li>
+
+        </ul>
+        <ul class="pull-right">
+          <li><a href="{:url('admin/index')}" target="right">控制台</a></li>
+          <li><a href="#" class="dropdown">工作 <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="{:url('student/index')}" target="right">學生檔案</a></li>
+              <!--  <li><a href="https://bailee.clickrapp.com/admin/student_recycle.html">學生檔案(回收站)</a></li>-->
+              <li><a href="{:url('exam/index')}" target="right">考試清單</a></li>
+              <li><a href="{:url('receipt/index')}" target="right">收據記錄</a></li>
+              <li><a href="{:url('contact/index')}" target="right">聯絡人清單</a></li>
+              <li><a href="{:url('worklog/index')}" target="right">工作日誌</a></li>
+              <li><a href="{:url('Calender/index')}" target="right">月曆</a></li>
+            </ul>
+          </li>
+      
+          <li><a href="#" class="dropdown">資料管理 <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="{:url('coach/index')}" target="right">師傅</a></li>
+              <li><a href="{:url('doctor/index')}" target="right">醫生</a></li>
+              <li><a href="{:url('street/index')}" target="right">街道編號</a></li>
+              <li><a href="{:url('question/index')}" target="right">技術試題</a></li>
+              <li><a href="{:url('question/newfive')}" target="right">新五冊試題 <label class="label label-success">新</label></a></li>
+              <li><a href="{:url('receipttype/index')}" target="right">收據選項</a></li>
+              <li><a href="{:url('cartype/index')}" target="right">車類管理</a></li>
+            </ul>
+          </li>
+          <li><a href="#" class="dropdown">系統管理 <i class="fa fa-caret-down"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="{:url('user/index')}" target="right">用戶管理</a></li>
+              <li><a href="{:url('group/index')}" target="right">用戶群組</a></li>
+              <li><a href="{:url('log/index')}" target="right">操作日誌</a></li>
+                      <li><a href="{:url('msg/index')}" target="right">訊息發放記錄</a></li>
+              <li><a href="{:url('setting/index')}" target="right">系統設定</a></li>
+            </ul>
+          </li>
+          <li><a href="https://bailee.clickrapp.com/index.html" target="_blank">模擬筆試登入</a></li>
+          <li><a href="{:url('user/editpassword')}" target="right">修改密碼</a></li>
+          <li><a href="{:url('login/logout')}" >登出</a></li>
+          
+        
+        </ul>
+      </div>
+
+    </nav>
+
+    <div class="cover0" style=" height:'1';">
+
+    </div>
+    <div  style=" height:100%; ">
+      <iframe rameborder="0"  scrolling="auto"  src="{:url('admin/index')}" name="right" width="100%" height="100%"
+        onload="this.height=screen.height-160;"></iframe>
+    </div>
+
+  </header>
+
+
+  <!-- onload="this.height=right.document.body.scrollHeight"
+  
+  -->
+  <footer>
+    <p class="copyright">© 駕駛學校工作平台</p>
+  </footer>
+  <!--
+  <script src="https://bailee.clickrapp.com/themes/admin/js/dropdown/dropdown.min.js"></script>
+<script src="https://bailee.clickrapp.com/themes/admin/js/stickUp.min.js"></script>
+<script src="https://bailee.clickrapp.com/themes/admin/js/application.js"></script>
+-->
+  <script src="__STATIC__/js/dropdown.min.js"></script>
+  <script src="__STATIC__/js/stickUp.min.js"></script>
+  <script src="__STATIC__/js/application.js"></script>
+
+</body>
+  <script language="javascript">
+        var LODOP = "";
+        function getSystemInfo() {
+            console.log("getSystemInfo");
+            LODOP = getLodop(document.getElementById('LODOP_OB'), document.getElementById('LODOP_EM'));
+         
+            return "";
+        }
+
+
+        function CheckIsInstall() {
+            try {
+                var LODOP = getLodop();
+         
+                if (LODOP.VERSION) {
+               
+
+                        return 1;
+
+                };
+           
+            } catch (err) {
+            }
+            return 0;
+        };
+       // CheckIsInstall() ;
+
+    </script>
+
+</html>
+
+</html>

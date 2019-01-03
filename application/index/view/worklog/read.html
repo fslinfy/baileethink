@@ -1,0 +1,115 @@
+{include file="header0" /}
+<div id="content">
+  <div class="grid-container">
+    <div class="grid-100">
+      <div class="box">
+        <div class="box-title">
+          <table width="100%">
+            <tr>
+              <td>
+                <div><strong class="icon-reorder"> 工作日誌</strong></div>
+              </td>
+
+            </tr>
+          </table>
+        </div>
+        <div class="box-content">
+          {include file="actionheader" /}
+          <br/>
+          <h2>{$title}</h2><br/>
+          <table class="pure-table pure-table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>身份證</th>
+                <th>姓名</th>
+                <th>報考車類</th>
+                <?php
+                    session('worklog',1,'think');
+                    if($titlename != 'empty') {
+                      foreach($titlename as $t) {
+                        echo '<th>'.$t.'</th>';
+                      }
+                    }
+                  ?>
+
+
+              </tr>
+            </thead>
+            <tbody>
+              {volist name="listdata" id="row" }
+              <tr>
+                <td class="id">{$row.student_idcard_number}</td>
+                <td class="name">
+                  <a href="{:url('index/student/read')}?id={$row.student_id}&worklog={$worklog}">
+                      {$row.student_name}&nbsp;{$row.student_foreign_surname},{$row.student_foreign_name}
+                      </a>
+                </td>
+                <td class="type">{$row.car_type}</td>
+                <?php
+                      $id_flag = 1;
+                      $student_id =$row->student_id;
+                       
+                      foreach($fieldname as $onefield){
+                          echo '<td>';
+                        if ($onefield=='')
+                        {
+                         
+                        }else
+                        {
+                          if ($onefield=='paper_date')
+                          {
+                          ?>
+
+                  <!---->
+                  {volist name="learninglist" id="lrow" } {if condition="$lrow.student_id==$student_id && $lrow.learning_type_id<3 "} {$lrow.learning_paper_date}
+                  {$lrow.learning_paper_time}
+                  <br/> {/if} {/volist}
+                  <!---->
+                  <?php 
+                          }
+                          else 
+                          {
+                               if ($onefield=='paper__date')
+                               {
+                              ?>
+
+                  <!---->
+                  {volist name="learninglist" id="lrow" } {if condition="$lrow.student_id==$student_id && $lrow.learning_type_id>2 "} {$lrow.learning_paper_date}
+                  {$lrow.learning_paper_time}
+                  <br/> {/if} {/volist}
+                  <!---->
+                  <?php 
+
+                               }else{  
+                              $fieldvalue =$row->$onefield;
+                              echo $fieldvalue;
+                               }
+                          }
+                      }
+                     
+                       echo '</td>';
+                      }  
+                    ?>
+              </tr>
+              {/volist}
+            </tbody>
+          </table>
+          <br />
+          <table width="100%" border="0">
+            <tr>
+                  <td style="text-align:right; ">
+                {$listdata->render()} 
+              </td>
+              <td style="vertical-align:middle; ">
+                总记录数（{$listdata->total()}）
+              </td>
+            </tr>
+          </table>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{include file="footer" /}
